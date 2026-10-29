@@ -1,0 +1,141 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Input } from "../starwind/input";
+
+interface Props {
+  services: CollectionEntry<"services">[];
+  compact?: boolean;
+}
+const { services, compact = false } = Astro.props;
+const categories = [
+  ...new Set(services.map(({ data }) => data.category)),
+].sort();
+---
+
+<div
+  class:list={[
+    "rounded-2xl border border-stroke bg-white shadow-panel ring-4 ring-white/30",
+    compact ? "border-t-[3px] border-t-brand p-5 sm:p-6" : "p-5 sm:p-8",
+  ]}
+  data-service-search
+>
+  <h2 class="text-lg font-bold text-navy">
+    {compact ? "Search services" : "Find a service"}
+  </h2>
+  <label class="sr-only" for={compact ? "home-search" : "directory-search"}>
+    Search services
+  </label>
+  <div class="mt-4 flex items-center gap-2 rounded-lg border border-input-border px-3 text-muted-copy focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brand [&_input]:w-full [&_input]:border-0 [&_input]:bg-transparent [&_input]:px-0 [&_input]:py-3 [&_input]:text-base [&_input]:text-ink [&_input:focus]:outline-none">
+    <svg
+      aria-hidden="true"
+      class="size-5 shrink-0"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      viewBox="0 0 24 24"
+    >
+      <circle cx="10.5" cy="10.5" r="6.5"></circle>
+      <path d="m16 16 4 4"></path>
+    </svg>
+    <Input
+      id={compact ? "home-search" : "directory-search"}
+      type="search"
+      placeholder="Search by name or category"
+      autocomplete="off"
+    />
+  </div>
+
+  {compact && categories.length > 0 && (
+    <div class="mt-6">
+      <h3 class="text-xs font-bold tracking-wide text-muted-copy uppercase">
+        Browse categories
+      </h3>
+      <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {categories.map((category) => (
+          <a
+            class="flex min-h-24 flex-col items-center justify-center gap-2 rounded-xl border border-stroke bg-civic-card p-3 text-center text-sm font-semibold text-navy no-underline hover:border-brand hover:bg-blue-wash"
+            href={`/services/?q=${encodeURIComponent(category)}`}
+          >
+            <span
+              class="grid size-9 place-items-center rounded-lg bg-blue-wash text-brand"
+              aria-hidden="true"
+            >
+              <svg
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+              >
+                {category === "Health & wellness" ? (
+                  <path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z" />
+                ) : category === "Permits & documents" ? (
+                  <>
+                    <path d="M7 3h7l4 4v14H7z" />
+                    <path d="M14 3v5h4M10 12h5M10 16h5" />
+                  </>
+                ) : (
+                  <>
+                    <circle cx="12" cy="8" r="3" />
+                    <path d="M5 20v-1a7 7 0 0 1 14 0v1M5 12a3 3 0 0 0-2 3M19 12a3 3 0 0 1 2 3" />
+                  </>
+                )}
+              </svg>
+            </span>
+            {category}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <p
+    class="mt-6 text-xs font-bold tracking-wide text-muted-copy uppercase"
+    aria-live="polite"
+    data-results-label
+  >
+    {compact ? "Example services" : `${services.length} services`}
+  </p>
+  <div class="mt-3 grid gap-2">
+    {services.map(({ id, data }) => (
+      <a
+        class="flex min-w-0 items-center justify-between gap-4 rounded-lg border border-stroke px-4 py-3 no-underline hover:border-brand hover:bg-surface-hover"
+        href={`/services/${id}/`}
+        data-service-item
+        data-search={`${data.title} ${data.description} ${data.category}`.toLowerCase()}
+      >
+        <span class="min-w-0">
+          <strong class="block text-sm text-navy">{data.title}</strong>
+          <span class="mt-1 block text-xs text-muted-copy">
+            {data.category}
+            {data.sample && " · Fictional example"}
+          </span>
+          {!compact && (
+            <span class="mt-1 block text-sm text-muted-copy">
+              {data.description}
+            </span>
+          )}
+        </span>
+        <span class="shrink-0 text-brand" aria-hidden="true">
+          →
+        </span>
+      </a>
+    ))}
+  </div>
+  <p class="empty mt-4 text-sm text-muted-copy" hidden>
+    No services match your search. Try another word.
+  </p>
+  {compact && (
+    <a
+      class="mt-5 inline-block text-sm font-bold text-brand underline-offset-4 hover:underline"
+      href="/services/"
+    >
+      View all services
+    </a>
+  )}
+</div>
+<script>
+  import "../../scripts/service-search";
+</script>

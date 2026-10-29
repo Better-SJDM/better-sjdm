@@ -1,0 +1,84 @@
+/* Shared site values: change these to update Tailwind and Starwind together. */
+@theme {
+  --color-brand: #003c9c;
+  --color-brand-hover: #082f79;
+  --color-navy: #092657;
+  --color-ink: #102950;
+  --color-muted-copy: #344c69;
+  --color-surface: #f1f6fd;
+  --color-stroke: #dbe6f3;
+  --color-blue-wash: #eaf2ff;
+  --color-soft-blue: #c5d7f1;
+  --color-sunshine: #ffcb24;
+  --color-gold: #b77c00;
+  --color-notice: #fff8e5;
+  --color-notice-border: #e2ad0b;
+  --color-notice-surface: #fff9e9;
+  --color-notice-outline: #f2e5c1;
+  --color-input-border: #b8cce5;
+  --color-surface-hover: #f6f9fe;
+  --color-blue-wash-hover: #d7e7ff;
+  --color-footer-border: #31507c;
+  --color-focus: #d99700;
+  --color-sky-light: #d8e9ff;
+  --color-sky-mid: #c3dcfb;
+  --color-sunlight: #fff2c6;
+  --background-image-civic: linear-gradient(
+    120deg,
+    #f5f9ff 0%,
+    var(--color-sky-light) 52%,
+    var(--color-sky-mid) 100%
+  );
+  --background-image-civic-soft: linear-gradient(
+    115deg,
+    #f7faff 0%,
+    var(--color-sky-light) 100%
+  );
+  --background-image-civic-nav: linear-gradient(
+    100deg,
+    var(--color-navy),
+    var(--color-brand)
+  );
+  --background-image-civic-card: linear-gradient(
+    145deg,
+    #ffffff 35%,
+    #f0f6ff 100%
+  );
+  --shadow-panel: 0 16px 40px #183b6814;
+  --animate-civic-enter: civic-enter 1.8s ease-out both;
+  --container-site: 1160px;
+  --font-site: Arial, Helvetica, sans-serif;
+
+  @keyframes civic-enter {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  --primary: var(--color-brand);
+  --primary-accent: var(--color-brand);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-site);
+    color: var(--color-ink);
+  }
+
+  a:focus-visible,
+  input:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
