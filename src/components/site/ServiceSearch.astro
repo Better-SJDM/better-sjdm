@@ -50,10 +50,10 @@ const categories = [
       <h3 class="text-xs font-bold tracking-wide text-muted-copy uppercase">
         Browse categories
       </h3>
-      <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <div class="mt-3 grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:grid-cols-3">
         {categories.map((category) => (
           <a
-            class="flex min-h-24 flex-col items-center justify-center gap-2 rounded-xl border border-stroke bg-civic-card p-3 text-center text-sm font-semibold text-navy no-underline hover:border-brand hover:bg-blue-wash"
+            class="flex min-h-14 items-center justify-start gap-3 rounded-xl border border-stroke bg-civic-card p-3 text-left text-sm font-semibold text-navy no-underline hover:border-brand hover:bg-blue-wash min-[420px]:min-h-24 min-[420px]:flex-col min-[420px]:justify-center min-[420px]:gap-2 min-[420px]:text-center"
             href={`/services/?q=${encodeURIComponent(category)}`}
           >
             <span

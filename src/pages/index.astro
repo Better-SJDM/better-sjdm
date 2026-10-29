@@ -23,7 +23,7 @@ const services = (await getCollection("services")).sort((a, b) =>
       class="pointer-events-none absolute right-[8%] bottom-[-12rem] size-80 rounded-full border-[2rem] border-white/20"
       aria-hidden="true"
     ></div>
-    <div class="relative mx-auto grid w-[calc(100%-2rem)] max-w-site items-center gap-10 py-14 min-[521px]:w-[calc(100%-2.5rem)] min-[801px]:grid-cols-[1fr_1.05fr] min-[801px]:gap-16 min-[801px]:py-24">
+    <div class="relative mx-auto grid w-[calc(100%-2rem)] max-w-site items-center gap-8 py-10 min-[521px]:w-[calc(100%-2.5rem)] min-[521px]:gap-10 min-[521px]:py-14 min-[801px]:grid-cols-[1fr_1.05fr] min-[801px]:gap-16 min-[801px]:py-24">
       <div class="max-w-xl">
         <p class="mb-4 flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-brand uppercase">
           <span class="h-0.5 w-6 bg-brand" aria-hidden="true"></span> Welcome to
@@ -35,16 +35,16 @@ const services = (await getCollection("services")).sort((a, b) =>
           class="mt-5 h-1.5 w-16 rounded-full bg-sunshine"
           aria-hidden="true"
         ></div>
-        <p class="mt-5 max-w-md text-lg leading-relaxed text-muted-copy">
+        <p class="mt-4 max-w-md text-base leading-relaxed text-muted-copy min-[521px]:mt-5 min-[521px]:text-lg">
           A community-powered guide to services and information in San Jose del
           Monte, Bulacan.
         </p>
-        <div class="mt-8 flex flex-wrap items-center gap-3">
+        <div class="mt-6 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap min-[420px]:items-center min-[521px]:mt-8">
           <Button
             as="a"
             variant="primary"
             size="lg"
-            class="min-h-12 bg-brand px-6 font-bold text-white hover:bg-brand-hover"
+            class="min-h-12 w-full bg-brand px-6 font-bold text-white hover:bg-brand-hover min-[420px]:w-auto"
             href="/services/"
           >
             Browse services <span aria-hidden="true">→</span>
@@ -53,7 +53,7 @@ const services = (await getCollection("services")).sort((a, b) =>
             as="a"
             variant="outline"
             size="lg"
-            class="min-h-12 border-stroke bg-white px-6 font-bold text-brand hover:bg-blue-wash"
+            class="min-h-12 w-full border-stroke bg-white px-6 font-bold text-brand hover:bg-blue-wash min-[420px]:w-auto"
             href="/about/"
           >
             About this project
