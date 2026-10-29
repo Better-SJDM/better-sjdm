@@ -10,41 +10,27 @@ const services = (await getCollection("services")).sort((a, b) =>
 ---
 
 <BaseLayout title="Home">
-  <section class="relative overflow-hidden bg-civic">
-    <div
-      class="pointer-events-none absolute -top-44 -right-36 size-[34rem] rounded-full border border-white/60 bg-white/20 motion-safe:animate-civic-enter"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="pointer-events-none absolute top-16 left-[-7rem] size-64 rounded-full bg-sunlight/70 blur-3xl motion-safe:animate-civic-enter motion-safe:[animation-delay:120ms]"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="pointer-events-none absolute right-[8%] bottom-[-12rem] size-80 rounded-full border-[2rem] border-white/20"
-      aria-hidden="true"
-    ></div>
-    <div class="relative mx-auto grid w-[calc(100%-2rem)] max-w-site items-center gap-8 py-10 min-[521px]:w-[calc(100%-2.5rem)] min-[521px]:gap-10 min-[521px]:py-14 min-[801px]:grid-cols-[1fr_1.05fr] min-[801px]:gap-16 min-[801px]:py-24">
-      <div class="max-w-xl">
-        <p class="mb-4 flex items-center gap-3 text-xs font-bold tracking-[0.12em] text-brand uppercase">
-          <span class="h-0.5 w-6 bg-brand" aria-hidden="true"></span> Welcome to
+  <section class="hero">
+    <div class="shape shape-circle" aria-hidden="true"></div>
+    <div class="shape shape-sun" aria-hidden="true"></div>
+    <div class="shape shape-ring" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span class="eyebrow-line" aria-hidden="true"></span> Welcome to
         </p>
-        <h1 class="text-[clamp(2.6rem,5vw,4.25rem)] leading-[1.05] font-extrabold tracking-[-0.045em] text-navy">
-          Better SJDM
-        </h1>
-        <div
-          class="mt-5 h-1.5 w-16 rounded-full bg-sunshine"
-          aria-hidden="true"
-        ></div>
-        <p class="mt-4 max-w-md text-base leading-relaxed text-muted-copy min-[521px]:mt-5 min-[521px]:text-lg">
+        <h1 class="hero-title">Better SJDM</h1>
+        <div class="title-accent" aria-hidden="true"></div>
+        <p class="hero-description">
           A community-powered guide to services and information in San Jose del
           Monte, Bulacan.
         </p>
-        <div class="mt-6 grid gap-3 min-[420px]:flex min-[420px]:flex-wrap min-[420px]:items-center min-[521px]:mt-8">
+        <div class="hero-actions">
           <Button
             as="a"
             variant="primary"
             size="lg"
-            class="min-h-12 w-full bg-brand px-6 font-bold text-white hover:bg-brand-hover min-[420px]:w-auto"
+            class="action action-primary"
             href="/services/"
           >
             Browse services <span aria-hidden="true">→</span>
@@ -53,7 +39,7 @@ const services = (await getCollection("services")).sort((a, b) =>
             as="a"
             variant="outline"
             size="lg"
-            class="min-h-12 w-full border-stroke bg-white px-6 font-bold text-brand hover:bg-blue-wash min-[420px]:w-auto"
+            class="action action-secondary"
             href="/about/"
           >
             About this project
@@ -62,25 +48,18 @@ const services = (await getCollection("services")).sort((a, b) =>
       </div>
       <ServiceSearch services={services} compact />
     </div>
-    <div class="relative mx-auto w-[calc(100%-2rem)] max-w-site pb-10 min-[521px]:w-[calc(100%-2.5rem)] min-[801px]:pb-14">
-      <div class="grid gap-5 rounded-2xl border border-white/80 bg-white/80 p-6 min-[521px]:p-8 min-[801px]:grid-cols-[1fr_1.05fr] min-[801px]:gap-16">
+    <div class="contribution">
+      <div class="contribution-card">
         <div>
-          <p class="text-xs font-bold tracking-[0.1em] text-brand uppercase">
-            Built together
-          </p>
-          <h2 class="mt-3 text-2xl font-bold tracking-tight text-navy">
-            A guide shaped by our community
-          </h2>
+          <p class="section-label">Built together</p>
+          <h2 class="contribution-title">A guide shaped by our community</h2>
         </div>
-        <div class="max-w-xl text-base leading-relaxed text-muted-copy">
+        <div class="contribution-copy">
           <p>
             Know a useful local service or spotted something that needs fixing?
             Help us build a more useful guide for everyone.
           </p>
-          <a
-            class="mt-4 inline-block font-bold text-brand underline-offset-4 hover:underline"
-            href="/about/#contribute"
-          >
+          <a class="contribution-link" href="/about/#contribute">
             Learn how to contribute
           </a>
         </div>
@@ -88,3 +67,210 @@ const services = (await getCollection("services")).sort((a, b) =>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--background-image-civic);
+  }
+  .shape {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  .shape-circle {
+    top: -11rem;
+    right: -9rem;
+    width: 34rem;
+    height: 34rem;
+    border: 1px solid #ffffff99;
+    background: #ffffff33;
+  }
+  .shape-sun {
+    top: 4rem;
+    left: -7rem;
+    width: 16rem;
+    height: 16rem;
+    background: color-mix(in srgb, var(--color-sunlight) 70%, transparent);
+    filter: blur(64px);
+  }
+  .shape-ring {
+    right: 8%;
+    bottom: -12rem;
+    width: 20rem;
+    height: 20rem;
+    border: 2rem solid #ffffff33;
+  }
+  .hero-inner,
+  .contribution {
+    position: relative;
+    width: min(calc(100% - 2rem), var(--container-site));
+    margin-inline: auto;
+  }
+  .hero-inner {
+    display: grid;
+    align-items: center;
+    gap: 2rem;
+    padding-block: 2.5rem;
+  }
+  .hero-copy {
+    max-width: 36rem;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--color-brand);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .eyebrow-line {
+    width: 1.5rem;
+    height: 2px;
+    background: var(--color-brand);
+  }
+  .hero-title {
+    color: var(--color-navy);
+    font-size: clamp(2.6rem, 5vw, 4.25rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+  .title-accent {
+    width: 4rem;
+    height: 0.375rem;
+    margin-top: 1.25rem;
+    border-radius: 99px;
+    background: var(--color-sunshine);
+  }
+  .hero-description {
+    max-width: 28rem;
+    margin-top: 1rem;
+    color: var(--color-muted-copy);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .hero-actions {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .action {
+    min-height: 48px;
+    width: 100%;
+    padding-inline: 1.5rem;
+    font-weight: 700;
+  }
+  .action-primary {
+    background: var(--color-brand);
+    color: white;
+  }
+  .action-primary:hover {
+    background: var(--color-brand-hover);
+  }
+  .action-secondary {
+    border-color: var(--color-stroke);
+    background: white;
+    color: var(--color-brand);
+  }
+  .action-secondary:hover {
+    background: var(--color-blue-wash);
+  }
+  .contribution {
+    padding-bottom: 2.5rem;
+  }
+  .contribution-card {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid #ffffffcc;
+    border-radius: 1rem;
+    background: #ffffffcc;
+  }
+  .section-label {
+    color: var(--color-brand);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .contribution-title {
+    margin-top: 0.75rem;
+    color: var(--color-navy);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  .contribution-copy {
+    max-width: 36rem;
+    color: var(--color-muted-copy);
+    line-height: 1.6;
+  }
+  .contribution-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-brand);
+    font-weight: 700;
+    text-underline-offset: 4px;
+  }
+  .contribution-link:hover {
+    text-decoration: underline;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .shape-circle,
+    .shape-sun {
+      animation: civic-enter 1.8s ease-out both;
+    }
+    .shape-sun {
+      animation-delay: 120ms;
+    }
+  }
+  @media (min-width: 420px) {
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .action {
+      width: auto;
+    }
+  }
+  @media (min-width: 521px) {
+    .hero-inner,
+    .contribution {
+      width: min(calc(100% - 2.5rem), var(--container-site));
+    }
+    .hero-inner {
+      gap: 2.5rem;
+      padding-block: 3.5rem;
+    }
+    .hero-description {
+      margin-top: 1.25rem;
+      font-size: 1.125rem;
+    }
+    .hero-actions {
+      margin-top: 2rem;
+    }
+    .contribution-card {
+      padding: 2rem;
+    }
+  }
+  @media (min-width: 801px) {
+    .hero-inner {
+      grid-template-columns: 1fr 1.05fr;
+      gap: 4rem;
+      padding-block: 6rem;
+    }
+    .contribution {
+      padding-bottom: 3.5rem;
+    }
+    .contribution-card {
+      grid-template-columns: 1fr 1.05fr;
+      gap: 4rem;
+    }
+  }
+</style>

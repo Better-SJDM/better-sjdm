@@ -8,22 +8,91 @@ const services = (await getCollection("services")).sort((a, b) =>
 ---
 
 <BaseLayout title="Services">
-  <section class="border-b border-stroke bg-civic-soft py-9 min-[521px]:py-16 [&_h1]:my-6 [&_h1]:text-[clamp(2rem,6vw,4rem)] [&_h1]:leading-[1.04] [&_h1]:font-extrabold [&_h1]:tracking-[-0.055em] [&_em]:not-italic [&_em]:text-brand [&>div>p:not(.eyebrow)]:max-w-[31rem] [&>div>p:not(.eyebrow)]:text-[1.05rem] [&>div>p:not(.eyebrow)]:leading-[1.8] [&>div>p:not(.eyebrow)]:text-muted-copy">
-    <div class="mx-auto w-[calc(100%-2rem)] max-w-site min-[521px]:w-[calc(100%-2.5rem)]">
-      <p class="eyebrow flex items-center gap-3 text-[0.7rem] font-extrabold tracking-[0.16em] text-brand [&>span]:h-0.5 [&>span]:w-[27px] [&>span]:bg-brand">
+  <section class="page-header">
+    <div class="container">
+      <p class="eyebrow">
         <span></span> THE COMMUNITY DIRECTORY
       </p>
       <h1>
         Services, all in <em>one place.</em>
       </h1>
-      <p>Explore the directory by name or category.</p>
+      <p class="page-description">Explore the directory by name or category.</p>
     </div>
   </section>
-  <div class="mx-auto w-[calc(100%-2rem)] max-w-site min-[521px]:w-[calc(100%-2.5rem)] max-w-[850px] pt-8 pb-14 min-[521px]:pt-12 min-[521px]:pb-20">
-    <div class="mb-6 border-l-[3px] border-notice-border bg-notice p-4 text-sm leading-relaxed">
+  <div class="content">
+    <div class="notice">
       <strong>Example content.</strong> These fictional entries do not describe
       real services.
     </div>
     <ServiceSearch services={services} />
   </div>
 </BaseLayout>
+
+<style>
+  .page-header {
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--color-stroke);
+    background: var(--background-image-civic-soft);
+  }
+  .container {
+    width: min(calc(100% - 2rem), var(--container-site));
+    margin-inline: auto;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-brand);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+  .eyebrow span {
+    width: 27px;
+    height: 2px;
+    background: var(--color-brand);
+  }
+  .page-header h1 {
+    margin: 1.5rem 0;
+    color: var(--color-ink);
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -0.055em;
+  }
+  .page-header h1 em {
+    color: var(--color-brand);
+    font-style: normal;
+  }
+  .page-description {
+    max-width: 31rem;
+    color: var(--color-muted-copy);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  .content {
+    width: min(calc(100% - 2rem), 850px);
+    margin-inline: auto;
+    padding: 2rem 0 3.5rem;
+  }
+  .notice {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-left: 3px solid var(--color-notice-border);
+    background: var(--color-notice);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  @media (min-width: 521px) {
+    .page-header {
+      padding-block: 4rem;
+    }
+    .container {
+      width: min(calc(100% - 2.5rem), var(--container-site));
+    }
+    .content {
+      width: min(calc(100% - 2.5rem), 850px);
+      padding-block: 3rem 5rem;
+    }
+  }
+</style>
