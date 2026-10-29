@@ -9,6 +9,15 @@ const {
   description = "A community-maintained guide to services in San Jose del Monte.",
 } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const links = [
+  { href: "/", label: "Home", current: path === "/" },
+  {
+    href: "/services/",
+    label: "Services",
+    current: path === "/services" || path.startsWith("/services/"),
+  },
+  { href: "/about/", label: "About", current: path === "/about" },
+];
 ---
 
 <!doctype html>
@@ -33,8 +42,8 @@ const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
         <span>Made for neighbors, by neighbors</span>
       </div>
     </div>
-    <header class="border-b border-stroke bg-white shadow-[0_3px_18px_#0926570d]">
-      <div class="mx-auto w-[calc(100%-2rem)] max-w-site min-[521px]:w-[calc(100%-2.5rem)] flex min-h-20 flex-wrap items-center justify-between gap-4 py-1 min-[521px]:min-h-[90px] min-[521px]:flex-nowrap min-[521px]:py-0">
+    <header class="relative z-10 border-b border-stroke bg-white shadow-[0_3px_18px_#0926570d]">
+      <div class="mx-auto flex min-h-20 w-[calc(100%-2rem)] max-w-site items-center justify-between gap-4 py-1 min-[521px]:min-h-[90px] min-[521px]:w-[calc(100%-2.5rem)] min-[521px]:py-0">
         <a
           href="/"
           class="block h-[70px] w-[126px] shrink-0 overflow-hidden min-[521px]:h-[87px] min-[521px]:w-[157px]"
@@ -45,29 +54,62 @@ const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
           </span>
         </a>
         <nav
-          class="flex items-center gap-0 min-[521px]:gap-1 [&_a]:rounded-md [&_a]:px-3 [&_a]:py-3 [&_a]:text-sm [&_a]:font-bold [&_a]:no-underline [&_a:hover]:bg-blue-wash [&_a[aria-current=page]]:bg-blue-wash [&_a[aria-current=page]]:text-brand"
+          class="hidden items-center gap-1 min-[640px]:flex [&_a]:rounded-md [&_a]:px-3 [&_a]:py-3 [&_a]:text-sm [&_a]:font-bold [&_a]:no-underline [&_a:hover]:bg-blue-wash [&_a[aria-current=page]]:bg-blue-wash [&_a[aria-current=page]]:text-brand"
           aria-label="Main navigation"
         >
-          <a href="/" aria-current={path === "/" ? "page" : undefined}>
-            Home
-          </a>
-          <a
-            href="/services/"
-            aria-current={
-              path === "/services" || path.startsWith("/services/")
-                ? "page"
-                : undefined
-            }
-          >
-            Services
-          </a>
-          <a
-            href="/about/"
-            aria-current={path === "/about" ? "page" : undefined}
-          >
-            About
-          </a>
+          {links.map((link) => (
+            <a
+              href={link.href}
+              aria-current={link.current ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
+        <details class="group min-[640px]:hidden">
+          <summary class="flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-lg border border-stroke px-3 text-sm font-bold text-brand hover:bg-blue-wash focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-focus [&::-webkit-details-marker]:hidden">
+            <svg
+              class="size-5 group-open:hidden"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg
+              class="hidden size-5 group-open:block"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M5 5l14 14M19 5L5 19"></path>
+            </svg>
+            Menu
+          </summary>
+          <nav
+            aria-label="Mobile navigation"
+            class="absolute inset-x-0 top-full border-b border-stroke bg-white px-4 py-3 shadow-panel"
+          >
+            <div class="mx-auto grid max-w-site gap-1">
+              {links.map((link) => (
+                <a
+                  class:list={[
+                    "flex min-h-12 items-center rounded-lg px-4 text-base font-semibold text-navy no-underline hover:bg-blue-wash",
+                    { "bg-blue-wash text-brand": link.current },
+                  ]}
+                  href={link.href}
+                  aria-current={link.current ? "page" : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        </details>
       </div>
     </header>
     <main id="main">
