@@ -1,17 +1,30 @@
+<img src="public/images/better-sjdm.png" alt="Better SJDM logo" width="320" />
+
 # Better SJDM
 
-Better SJDM is a community-maintained guide to services and information in San Jose del Monte, Bulacan. It aims to make useful local information easier to find and easier for residents to improve together.
+Better SJDM is a community-maintained guide to services and information in San Jose del Monte, Bulacan. Residents can help keep it useful by suggesting services and correcting outdated information.
 
 **Project status: early foundation.** The service directory currently contains fictional examples, not verified city services. Better SJDM is an independent community project and is not an official city government website.
 
-## What is available
+## Explore the project
 
 - A homepage and searchable service directory, with a page for each service.
 - Source links and verification dates on service pages.
 - An About page explaining the project and how to contribute.
 - Responsive layouts built with Astro, Tailwind CSS v4, and Starwind UI.
 
-The site is statically generated. Service information is stored in YAML files and compiled into the site at build time. Search runs in the browser. There is no backend or online submission form.
+The site is built with Astro, Tailwind CSS v4, and Starwind UI. Service information comes from YAML files, and search runs in the browser. The site has no backend.
+
+## Help improve the guide
+
+You do not need to write code to contribute. If you know of a useful service or find incorrect information, [open an issue](https://github.com/Better-SJDM/better-sjdm/issues/new/choose) and choose the appropriate template:
+
+- **Content suggestion:** tell us what service or information to add and why it would help residents.
+- **Content correction:** identify the page and explain what needs to change.
+
+Include a link to a reliable source, preferably an official source. Maintainers will review the information before adding it. Please do not include private personal information or unverified emergency numbers.
+
+If you would like to edit the files yourself, follow [Add a service](#add-a-service). For the review process, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Run locally
 
@@ -28,11 +41,9 @@ To access the site from another device on the same trusted network, run `pnpm de
 
 The project uses pnpm's build-script approvals in `pnpm-workspace.yaml` for `esbuild` and `sharp`. If installation reports an ignored build script, review it before using `pnpm approve-builds`; do not approve unknown packages automatically.
 
-## Contribute information
+## Add a service
 
-You do not need to write code to help. Once the repository is available on GitHub, use the **Content suggestion** issue template to suggest a service, or the **Content correction** template to report outdated information. Include the affected page or service, what should change, and a reliable source link.
-
-To propose a YAML change yourself:
+Service entries live in `src/content/services/`, with one YAML file per service. To propose a change:
 
 1. Fork the repository on GitHub, clone your fork, and create a branch for your change.
 2. Add or edit a `.yaml` file in `src/content/services/`. Use a short, descriptive, lowercase filename such as `example-service.yaml`.
@@ -70,7 +81,7 @@ For a real entry, replace every example value with verified information and omit
 
 Astro's content collection validates the YAML during checks and builds. The homepage categories are derived from the entries; service search matches titles, descriptions, and categories. The directory currently has a page-wide notice saying entries are examples, so maintainers must update that notice when introducing real entries.
 
-For more detail, see [CONTRIBUTING.md](CONTRIBUTING.md) and the [content guide](docs/content-guide.md).
+For more detail, see the [content guide](docs/content-guide.md).
 
 ## Checks and build
 
