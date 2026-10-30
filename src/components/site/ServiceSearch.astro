@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Input } from "../starwind/input";
 
 interface Props {
   services: CollectionEntry<"services">[];
@@ -34,7 +33,7 @@ const categories = [
       <circle cx="10.5" cy="10.5" r="6.5"></circle>
       <path d="m16 16 4 4"></path>
     </svg>
-    <Input
+    <input
       id={compact ? "home-search" : "directory-search"}
       type="search"
       placeholder="Search by name or category"
@@ -164,7 +163,7 @@ const categories = [
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;
   }
-  .search-field :global(input) {
+  .search-field input {
     width: 100%;
     padding: 0.75rem 0;
     border: 0;
@@ -172,7 +171,7 @@ const categories = [
     color: var(--color-ink);
     font-size: 1rem;
   }
-  .search-field :global(input:focus) {
+  .search-field input:focus {
     outline: none;
   }
   .search-icon,

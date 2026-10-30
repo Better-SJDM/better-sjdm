@@ -11,9 +11,9 @@ Better SJDM is a community-maintained guide to services and information in San J
 - A homepage and searchable service directory, with a page for each service.
 - Source links and verification dates on service pages.
 - An About page explaining the project and how to contribute.
-- Responsive layouts built with Astro, scoped CSS, and Starwind UI.
+- Responsive layouts built with Astro and scoped CSS.
 
-The site is built with Astro and Starwind UI. Site layouts use CSS in each Astro file; Starwind's components use Tailwind CSS v4. Service information comes from YAML files, and search runs in the browser. The site has no backend.
+The site is built with Astro. Site layouts use CSS in each Astro file. Service information comes from YAML files, and search runs in the browser. The site has no backend.
 
 ## Help improve the guide
 
@@ -101,19 +101,18 @@ pnpm build
 ```text
 src/
   components/site/       Shared site UI and service search
-  components/starwind/   Starwind components used by the site
   content/services/      YAML service entries
   layouts/               Shared page layout and navigation
   pages/                 Homepage, directory, service pages, and other routes
   scripts/               Browser-side search behavior
-  styles/                Tailwind, Starwind, and shared theme values
+  styles/                Global CSS and shared theme values
   content.config.ts      Content collection loader and schema
 public/                  Logo, favicon, and other static assets
 docs/                    Content guidance and release roadmap
 .github/                 Issue templates and pull-request CI
 ```
 
-Shared colors, font, gradient, and content-width values are in `src/styles/global.css`. Starwind's primary color uses the same brand color. Add or modify Starwind components through the project's existing Starwind setup.
+Shared colors, font, gradient, and content-width values are in `src/styles/global.css`.
 
 ## Releases and hosting
 

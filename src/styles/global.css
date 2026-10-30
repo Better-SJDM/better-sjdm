@@ -1,5 +1,4 @@
-/* Shared site values: change these to update Tailwind and Starwind together. */
-@theme static {
+:root {
   --color-brand: #003c9c;
   --color-brand-hover: #082f79;
   --color-navy: #092657;
@@ -48,37 +47,55 @@
   --animate-civic-enter: civic-enter 1.8s ease-out both;
   --container-site: 1160px;
   --font-site: Arial, Helvetica, sans-serif;
+}
 
-  @keyframes civic-enter {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes civic-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-:root {
-  --primary: var(--color-brand);
-  --primary-accent: var(--color-brand);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-
-@layer base {
-  body {
-    font-family: var(--font-site);
-    color: var(--color-ink);
-  }
-
-  a:focus-visible,
-  input:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: 3px;
-  }
-
-  [hidden] {
-    display: none !important;
-  }
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+body {
+  font-family: var(--font-site);
+  color: var(--color-ink);
+  line-height: 1.5;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+img,
+svg {
+  display: block;
+}
+img {
+  max-width: 100%;
+}
+input {
+  font: inherit;
+}
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+[hidden] {
+  display: none !important;
 }
