@@ -10,20 +10,17 @@ const services = (await getCollection("services")).sort((a, b) =>
 <BaseLayout title="Services">
   <section class="page-header">
     <div class="container">
-      <p class="eyebrow">
-        <span></span> THE COMMUNITY DIRECTORY
-      </p>
-      <h1>
-        Services, all in <em>one place.</em>
-      </h1>
+      <h1>Find a service</h1>
       <p class="page-description">Explore the directory by name or category.</p>
     </div>
   </section>
   <div class="content">
-    <div class="notice">
-      <strong>Example content.</strong> These fictional entries do not describe
-      real services.
-    </div>
+    {services.some(({ data }) => data.sample) && (
+      <div class="notice">
+        <strong>Example content.</strong> Entries marked as fictional do not
+        describe real services.
+      </div>
+    )}
     <ServiceSearch services={services} />
   </div>
 </BaseLayout>

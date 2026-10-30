@@ -4,3 +4,7 @@ category: Health & wellness
 source: https://example.com/
 verified: 2026-01-01
 sample: true
+requirements:
+  - Example requirement for a fictional service
+steps:
+  - Example step for a fictional service

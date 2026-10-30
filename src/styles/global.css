@@ -76,21 +76,9 @@
     var(--color-sky-light) 52%,
     var(--color-sky-mid) 100%
   );
-  --background-image-civic-soft: linear-gradient(
-    115deg,
-    #f7faff 0%,
-    var(--color-sky-light) 100%
-  );
-  --background-image-civic-nav: linear-gradient(
-    100deg,
-    var(--color-navy),
-    var(--color-brand)
-  );
-  --background-image-civic-card: linear-gradient(
-    145deg,
-    #ffffff 35%,
-    #f0f6ff 100%
-  );
+  --background-image-civic-soft: #f8f5ee;
+  --background-image-civic-nav: #092657;
+  --background-image-civic-card: #fff;
   --shadow-panel: 0 16px 40px #183b6814;
   --animate-civic-enter: civic-enter 1.8s ease-out both;
   --container-site: 1160px;
@@ -143,9 +131,25 @@ textarea {
   font: inherit;
 }
 a:focus-visible,
-input:focus-visible {
+input:focus-visible,
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 3px;
+}
+@media print {
+  .site-header,
+  .topline,
+  .site-footer,
+  .skip-link {
+    display: none !important;
+  }
+  body {
+    color: black;
+    background: white;
+  }
 }
 [hidden] {
   display: none !important;

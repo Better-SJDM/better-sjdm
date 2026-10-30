@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-
 interface Props {
   services: CollectionEntry<"services">[];
   compact?: boolean;
@@ -12,130 +11,85 @@ const categories = [
 ---
 
 <div class:list={["search-panel", { compact }]} data-service-search>
-  <h2 class="search-heading">
-    {compact ? "Search services" : "Find a service"}
-  </h2>
+  {!compact && <h2>Find a service</h2>}
   <label
-    class="visually-hidden"
+    class:list={{ "visually-hidden": compact }}
     for={compact ? "home-search" : "directory-search"}
   >
-    Search services
+    {compact ? "Search services" : "Search by name, description, or category"}
   </label>
-  <div class="search-field">
-    <svg
-      aria-hidden="true"
-      class="search-icon"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.8"
-      viewBox="0 0 24 24"
-    >
-      <circle cx="10.5" cy="10.5" r="6.5"></circle>
-      <path d="m16 16 4 4"></path>
-    </svg>
+  <form class="search-form" action="/services/" role="search">
     <input
       id={compact ? "home-search" : "directory-search"}
       type="search"
-      placeholder="Search by name or category"
+      name="q"
       autocomplete="off"
+      placeholder={compact ? "Search for a service" : "Type a word to search"}
     />
-  </div>
-
-  {compact && categories.length > 0 && (
+    {compact && <button type="submit">Find a service</button>}
+  </form>
+  {categories.length > 0 && (
     <div class="categories">
-      <h3 class="categories-heading">Browse categories</h3>
-      <div class="categories-grid">
+      <h3>{compact ? "Browse by category:" : "Browse by category"}</h3>
+      <div class="category-list">
         {categories.map((category) => (
-          <a
-            class="category-link"
-            href={`/services/?q=${encodeURIComponent(category)}`}
-          >
-            <span class="category-icon" aria-hidden="true">
-              <svg
-                class="category-svg"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.8"
-                viewBox="0 0 24 24"
-              >
-                {category === "Health & wellness" ? (
-                  <path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z" />
-                ) : category === "Permits & documents" ? (
-                  <>
-                    <path d="M7 3h7l4 4v14H7z" />
-                    <path d="M14 3v5h4M10 12h5M10 16h5" />
-                  </>
-                ) : (
-                  <>
-                    <circle cx="12" cy="8" r="3" />
-                    <path d="M5 20v-1a7 7 0 0 1 14 0v1M5 12a3 3 0 0 0-2 3M19 12a3 3 0 0 1 2 3" />
-                  </>
-                )}
-              </svg>
-            </span>
+          <a href={`/services/?q=${encodeURIComponent(category)}`}>
             {category}
           </a>
         ))}
       </div>
     </div>
   )}
-
-  <p class="results-label" aria-live="polite" data-results-label>
-    {compact ? "Example services" : `${services.length} services`}
+  <p
+    class="results-label"
+    aria-live="polite"
+    data-results-label
+    hidden={compact}
+  >
+    {services.length
+      ? `${services.length} ${services.length === 1 ? "service" : "services"}`
+      : "No services yet"}
   </p>
-  <div class="results">
+  <div class="results" data-search-results hidden={compact}>
     {services.map(({ id, data }) => (
       <a
-        class="result-link"
+        class="result"
         href={`/services/${id}/`}
         data-service-item
-        data-search={`${data.title} ${data.description} ${data.category}`.toLowerCase()}
+        data-search={`${data.title} ${data.description} ${data.category} ${(data.keywords ?? []).join(" ")}`.toLowerCase()}
       >
-        <span class="result-content">
-          <strong class="result-title">{data.title}</strong>
-          <span class="result-category">
-            {data.category}
-            {data.sample && " · Fictional example"}
-          </span>
-          {!compact && (
-            <span class="result-description">{data.description}</span>
-          )}
+        <strong>{data.title}</strong>
+        <span>
+          {data.category}
+          {data.sample && " · Fictional example"}
         </span>
-        <span class="result-arrow" aria-hidden="true">
-          →
-        </span>
+        {!compact && <span>{data.description}</span>}
       </a>
     ))}
   </div>
   <p class="empty" hidden>
-    No services match your search. Try another word.
+    No services match your search. Try another word or browse a category.
   </p>
-  {compact && (
-    <a class="all-link" href="/services/">
-      View all services
-    </a>
-  )}
 </div>
 <script>
   import "../../scripts/service-search";
 </script>
-
 <style>
   .search-panel {
-    padding: 1.25rem;
-    border: 1px solid var(--color-stroke);
-    border-radius: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
     background: white;
-    box-shadow: var(--shadow-panel);
+    border: 1px solid #c8d1dc;
+    border-radius: 1.25rem;
+    box-shadow: 0 14px 36px #09265714;
   }
   .search-panel.compact {
-    border-top: 3px solid var(--color-brand);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
-  .search-heading {
-    color: var(--color-navy);
-    font-size: 1.125rem;
+  .compact label {
     font-weight: 700;
   }
   .visually-hidden {
@@ -145,161 +99,164 @@ const categories = [
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
-    border: 0;
   }
-  .search-field {
+  .compact .search-form {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    padding-inline: 0.75rem;
-    border: 1px solid var(--color-input-border);
-    border-radius: 0.5rem;
-    color: var(--color-muted-copy);
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: stretch;
   }
-  .search-field:focus-within {
-    outline: 2px solid var(--color-brand);
-    outline-offset: 2px;
+  .compact input {
+    flex: 1 1 15rem;
+    width: auto;
+    min-width: 0;
+    min-height: 58px;
+    margin: 0;
+    padding-inline: 1.1rem;
+    border-color: #8da6c7;
+    box-shadow: 0 8px 24px #09265712;
   }
-  .search-field input {
-    width: 100%;
-    padding: 0.75rem 0;
+  .search-form button {
+    min-height: 48px;
+    padding: 0.75rem 1.2rem;
     border: 0;
-    background: transparent;
-    color: var(--color-ink);
+    border-radius: 0.65rem;
+    background: var(--color-brand);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .search-form button:hover {
+    background: var(--color-brand-hover);
+  }
+  .compact .categories {
+    margin-top: 1rem;
+  }
+  .compact .results {
+    background: white;
+    border-radius: 0.75rem;
+    padding-inline: 1rem;
+  }
+  h2 {
+    font-size: 1.55rem;
+    line-height: 1.2;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
     font-size: 1rem;
   }
-  .search-field input:focus {
-    outline: none;
+  input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 0.5rem;
+    padding: 0.7rem;
+    border: 1px solid #718096;
+    border-radius: 0.65rem;
+    color: var(--color-ink);
+    background: white;
   }
-  .search-icon,
-  .category-svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-  .categories,
-  .results-label {
+  .categories {
     margin-top: 1.5rem;
   }
-  .categories-heading,
-  .results-label {
-    color: var(--color-muted-copy);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.025em;
-    text-transform: uppercase;
+  h3 {
+    font-size: 1rem;
   }
-  .categories-grid,
-  .results {
-    display: grid;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-  .category-link {
+  .category-list {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .category-list a,
+  .all-link {
+    color: var(--color-brand);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .category-list a {
+    display: inline-flex;
     align-items: center;
-    justify-content: flex-start;
-    min-height: 56px;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border: 1px solid var(--color-stroke);
-    border-radius: 0.75rem;
-    background: var(--background-image-civic-card);
-    color: var(--color-navy);
-    font-size: 0.875rem;
-    font-weight: 600;
+    min-height: 44px;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid #c2d4ea;
+    border-radius: 0.65rem;
+    background: #f3f7fd;
     text-decoration: none;
   }
-  .category-link:hover,
-  .result-link:hover {
+  .category-list a:hover {
+    background: #e4effc;
     border-color: var(--color-brand);
   }
-  .category-icon {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+  @media (prefers-reduced-motion: no-preference) {
+    .search-panel.compact {
+      animation: panel-enter 650ms ease-out both;
+    }
+    .category-list a,
+    .result {
+      transition:
+        background-color 180ms ease,
+        border-color 180ms ease;
+    }
+    @keyframes panel-enter {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  .results-label {
+    margin-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #aeb9c6;
+    font-weight: 700;
+  }
+  .result {
+    display: block;
+    min-height: 48px;
+    padding: 0.9rem 0.75rem;
+    border-bottom: 1px solid #d5dce4;
     border-radius: 0.5rem;
-    background: var(--color-blue-wash);
+  }
+  .result:hover {
+    background: #f3f7fd;
+  }
+  .result:hover strong {
+    text-decoration: underline;
+  }
+  .result strong {
     color: var(--color-brand);
   }
-  .result-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 0;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--color-stroke);
-    border-radius: 0.5rem;
-    text-decoration: none;
-  }
-  .result-link:hover {
-    background: var(--color-surface-hover);
-  }
-  .result-content {
-    min-width: 0;
-  }
-  .result-title {
-    display: block;
-    color: var(--color-navy);
-    font-size: 0.875rem;
-  }
-  .result-category,
-  .result-description {
+  .result span {
     display: block;
     margin-top: 0.25rem;
     color: var(--color-muted-copy);
-    font-size: 0.75rem;
-  }
-  .result-description {
-    font-size: 0.875rem;
-  }
-  .result-arrow {
-    flex-shrink: 0;
-    color: var(--color-brand);
+    font-size: 0.95rem;
   }
   .empty {
     margin-top: 1rem;
-    color: var(--color-muted-copy);
-    font-size: 0.875rem;
   }
   .all-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
     margin-top: 1.25rem;
-    color: var(--color-brand);
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-underline-offset: 4px;
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.65rem;
+    background: var(--color-brand);
+    color: white;
+    text-decoration: none;
   }
   .all-link:hover {
-    text-decoration: underline;
-  }
-  @media (min-width: 420px) {
-    .categories-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .category-link {
-      flex-direction: column;
-      justify-content: center;
-      min-height: 96px;
-      gap: 0.5rem;
-      text-align: center;
-    }
-  }
-  @media (min-width: 640px) {
-    .search-panel.compact {
-      padding: 1.5rem;
-    }
-    .search-panel:not(.compact) {
-      padding: 2rem;
-    }
-    .categories-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    background: var(--color-brand-hover);
   }
 </style>

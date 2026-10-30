@@ -12,6 +12,12 @@ const services = defineCollection({
     sample: z.boolean().default(false),
     contact: z.string().optional(),
     location: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+    eligibility: z.string().optional(),
+    requirements: z.array(z.string()).optional(),
+    steps: z.array(z.string()).optional(),
+    fees: z.string().optional(),
+    processingTime: z.string().optional(),
   }),
 });
 
