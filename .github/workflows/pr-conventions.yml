@@ -1,0 +1,27 @@
+name: Pull request conventions
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  conventions:
+    name: Branch and PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name and PR title
+        env:
+          BRANCH: ${{ github.head_ref }}
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$BRANCH" =~ ^(feat|fix|docs|content|chore|test|refactor|style|perf|build|ci)/[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo 'Branch must look like feat/service-search or fix/broken-link.'
+            exit 1
+          fi
+          if [[ ! "$TITLE" =~ ^(feat|fix|docs|content|chore|test|refactor|style|perf|build|ci)(\([a-z0-9._/-]+\))?!?:\ .*[[:alnum:]].*$ ]]; then
+            echo 'PR title must look like fix: correct a link or feat(search): filter services.'
+            exit 1
+          fi

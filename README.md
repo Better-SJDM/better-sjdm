@@ -45,7 +45,7 @@ The project uses pnpm's build-script approvals in `pnpm-workspace.yaml` for `esb
 
 Service entries live in `src/content/services/`, with one YAML file per service. To propose a change:
 
-1. Fork the repository on GitHub, clone your fork, and create a branch for your change.
+1. Fork the repository on GitHub, clone your fork, and create a branch for your change using the naming convention in [CONTRIBUTING.md](CONTRIBUTING.md).
 2. Add or edit a `.yaml` file in `src/content/services/`. Use a short, descriptive, lowercase filename such as `example-service.yaml`.
 3. Check the information against a reliable, preferably official, source. Record the source URL and the date you checked it. Never submit unverified emergency contacts or present examples as real information.
 4. Run the checks below and preview your entry locally. Confirm that its directory listing, detail page, and source link work.
