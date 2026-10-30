@@ -12,6 +12,8 @@ Thank you for helping improve Better SJDM. You can suggest a service or report a
 
 Use conventional commit subjects for your commits, for example `docs: clarify local setup` or `fix(search): handle empty queries`. Common types are `feat`, `fix`, `docs`, `content`, `chore`, `test`, `refactor`, `style`, `perf`, `build`, and `ci`. PR titles follow the same format and are checked automatically; individual commits are a contributor convention and are not automatically checked. If a PR is squash merged, its final commit message should follow the same format.
 
+Dependabot proposes dependency and GitHub Actions updates weekly. Its PRs are exempt from branch and title checks but still require the usual CI checks and review.
+
 ## Local checks
 
 Install Node.js 24 and pnpm 12+, then run:

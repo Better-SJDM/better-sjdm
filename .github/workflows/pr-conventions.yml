@@ -16,7 +16,11 @@ jobs:
         env:
           BRANCH: ${{ github.head_ref }}
           TITLE: ${{ github.event.pull_request.title }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
+          if [[ "$AUTHOR" == "dependabot[bot]" ]]; then
+            exit 0
+          fi
           if [[ ! "$BRANCH" =~ ^(feat|fix|docs|content|chore|test|refactor|style|perf|build|ci)/[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo 'Branch must look like feat/service-search or fix/broken-link.'
             exit 1
