@@ -1,0 +1,1174 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import stats from "../data/sjdm-statistics.json";
+import "leaflet/dist/leaflet.css";
+
+const census2024 = stats.city.censusFigures.find(
+  (entry) => entry.year === 2024,
+)!;
+const census2020 = stats.city.censusFigures.find(
+  (entry) => entry.year === 2020,
+)!;
+const format = (value: number) => value.toLocaleString("en-PH");
+
+const d1Barangays = stats.barangays.filter((b) => b.district === 1);
+const d2Barangays = stats.barangays.filter((b) => b.district === 2);
+---
+
+<BaseLayout
+  title="City Statistics"
+  description="Verified demographics, historical census trends, and interactive barangay boundary map for the City of San Jose del Monte, Bulacan."
+>
+  <!-- Page Header -->
+  <section class="stats-header">
+    <div class="container">
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Statistics</span>
+      </nav>
+      <h1 class="stats-title">City Statistics</h1>
+      <p class="stats-lead">
+        Demographics, 30-year census trends, and interactive barangay boundary
+        map for the City of San Jose del Monte, Bulacan.
+      </p>
+    </div>
+  </section>
+
+  <div class="container stats-content">
+    <!-- 4 Key Indicator Cards (Better Puerto Princesa style) -->
+    <section class="indicators-section" aria-label="Key City Indicators">
+      <div class="indicators-grid">
+        <div class="indicator-card">
+          <div class="indicator-icon" aria-hidden="true">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="indicator-value">
+            {format(census2024.totalPopulation)}
+          </div>
+          <div class="indicator-label">Total Population</div>
+          <div class="indicator-sub">
+            <a
+              href="https://psa.gov.ph/classification/psgc/barangays/0301420000"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              2024 PSA Census (POPCEN)
+            </a>
+          </div>
+        </div>
+
+        <div class="indicator-card">
+          <div class="indicator-icon" aria-hidden="true">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <div class="indicator-value">{stats.city.totalBarangays}</div>
+          <div class="indicator-label">Barangays</div>
+          <div class="indicator-sub">Current barangays (PSA / PSGC)</div>
+        </div>
+
+        <div class="indicator-card">
+          <div class="indicator-icon" aria-hidden="true">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+              <line x1="8" y1="2" x2="8" y2="18"></line>
+              <line x1="16" y1="6" x2="16" y2="22"></line>
+            </svg>
+          </div>
+          <div class="indicator-value">
+            {stats.city.landAreaKm2.toFixed(2)} km²
+          </div>
+          <div class="indicator-label">Land Area</div>
+          <div class="indicator-sub">
+            {format(
+              Math.round(census2024.totalPopulation / stats.city.landAreaKm2),
+            )}{" "}
+            people / km² density (2024)
+          </div>
+        </div>
+
+        <div class="indicator-card">
+          <div class="indicator-icon" aria-hidden="true">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 21h18"></path>
+              <path d="M5 21V7l7-4 7 4v14"></path>
+              <path d="M9 10a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v11H9z"></path>
+            </svg>
+          </div>
+          <div class="indicator-value">Component City</div>
+          <div class="indicator-label">Legal Status & District</div>
+          <div class="indicator-sub">Converted via RA 8797 (2 Districts)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demographics & Population Structure (Pillars style) -->
+    <section class="section-block" aria-labelledby="demographics-heading">
+      <div class="section-header">
+        <h2 id="demographics-heading" class="section-title">
+          Demographics & Community Profile
+        </h2>
+        <p class="section-subtitle">
+          Key population indicators from the official 2020 Census of Population
+          and Housing (CPH), Philippine Statistics Authority.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-tag">Households</span>
+          <div class="pillar-value">
+            {format(census2020.households ?? 156871)}
+          </div>
+          <div class="pillar-meta">
+            Avg. household size:{" "}
+            <strong>{census2020.averageHouseholdSize}</strong>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-tag">Annual Growth</span>
+          <div class="pillar-value">
+            +{census2020.growthRateAnnual2015_2020}%
+          </div>
+          <div class="pillar-meta">Intercensal growth (2015–2020)</div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-tag">Working Age</span>
+          <div class="pillar-value">65.3%</div>
+          <div class="pillar-meta">
+            {format(
+              stats.city.demographics2020.ageDistribution.workingAge_15_64,
+            )}{" "}
+            residents (15–64 yrs)
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-tag">Youth Population</span>
+          <div class="pillar-value">30.3%</div>
+          <div class="pillar-meta">
+            {format(stats.city.demographics2020.ageDistribution.young_0_14)}{" "}
+            youth (0–14 yrs)
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-tag">Senior Citizens</span>
+          <div class="pillar-value">4.3%</div>
+          <div class="pillar-meta">
+            {format(
+              stats.city.demographics2020.ageDistribution.elderly_65_plus,
+            )}{" "}
+            seniors (65+ yrs)
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-tag">Sex Ratio</span>
+          <div class="pillar-value">
+            {stats.city.demographics2020.genderBreakdown.sexRatio}
+          </div>
+          <div class="pillar-meta">
+            {format(stats.city.demographics2020.genderBreakdown.male)} M /{" "}
+            {format(stats.city.demographics2020.genderBreakdown.female)} F
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Barangay Explorer (Better Puerto Princesa Map & Quick-Select Grid) -->
+    <section
+      class="section-block explorer-section"
+      data-statistics
+      aria-labelledby="barangays-heading"
+    >
+      <div class="section-header">
+        <h2 id="barangays-heading" class="section-title">
+          Explore the 62 Barangays
+        </h2>
+        <p class="section-subtitle">
+          Search or select a barangay in the list or on the map to inspect its
+          location, verified population, and boundaries.
+        </p>
+      </div>
+
+      <!-- Active Barangay Detail Card -->
+      <div class="detail-banner" data-bgy-detail aria-live="polite">
+        <div class="detail-header">
+          <div>
+            <span class="detail-district-badge" data-detail-district>
+              District 1
+            </span>
+            <h3 class="detail-name" data-detail-name>
+              Poblacion
+            </h3>
+          </div>
+          <div class="detail-psgc-wrap">
+            <span class="detail-psgc-label">PSGC Code:</span>
+            <code class="detail-psgc" data-detail-psgc>
+              0301420008
+            </code>
+          </div>
+        </div>
+        <div class="detail-stats-grid">
+          <div class="detail-stat">
+            <span class="detail-stat-label">2024 Census Population</span>
+            <span class="detail-stat-value" data-detail-population>
+              2,376
+            </span>
+          </div>
+          <div class="detail-stat">
+            <span class="detail-stat-label">Land Area</span>
+            <span class="detail-stat-value" data-detail-area>
+              0.61 km²
+            </span>
+          </div>
+        </div>
+        <p class="detail-note" data-detail-note hidden></p>
+      </div>
+
+      <div class="explorer-columns">
+        <div class="explorer-map">
+          <!-- Map Container -->
+          <div class="map-wrapper">
+            <div
+              id="barangay-map"
+              aria-label="Interactive map of San Jose del Monte barangay boundaries"
+            ></div>
+            <div class="map-prompt" data-map-prompt>
+              <div class="spinner" aria-hidden="true"></div>
+              <p>Loading high-resolution barangay boundaries…</p>
+            </div>
+          </div>
+          <p class="map-status-line">
+            Scroll over the map to zoom; select a barangay to explore.
+          </p>
+          <p class="map-status-line" data-map-status role="status"></p>
+        </div>
+        <div class="explorer-directory">
+          <!-- Filter Controls & Search -->
+          <div class="filter-toolbar">
+            <div class="search-box">
+              <svg
+                class="search-icon"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                id="barangay-search"
+                type="search"
+                placeholder="Filter by barangay name (e.g. Muzon, Tungkong Mangga)…"
+                autocomplete="off"
+                aria-label="Filter barangays by name"
+              />
+            </div>
+
+            <details class="district-filter">
+              <summary
+                aria-label="Filter by district"
+                title="Filter by district"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 7h16M7 12h10M10 17h4"></path>
+                </svg>
+              </summary>
+              <fieldset class="district-menu" aria-label="Filter by district">
+                <legend>District</legend>
+                <label>
+                  <input type="radio" name="district" value="all" checked />
+                  <span>
+                    All <small>{stats.barangays.length}</small>
+                  </span>
+                </label>
+                <label>
+                  <input type="radio" name="district" value="1" />
+                  <span>
+                    District 1 <small>{d1Barangays.length}</small>
+                  </span>
+                </label>
+                <label>
+                  <input type="radio" name="district" value="2" />
+                  <span>
+                    District 2 <small>{d2Barangays.length}</small>
+                  </span>
+                </label>
+              </fieldset>
+            </details>
+          </div>
+
+          <p class="list-status" data-list-status aria-live="polite">
+            {stats.barangays.length} barangays shown
+          </p>
+          <p class="list-empty" data-list-empty hidden>
+            No barangays match your filter. Try another name.
+          </p>
+
+          <!-- Responsive Grid of 59 Barangay Buttons (like Better Puerto Princesa) -->
+          <div class="barangay-button-grid" role="list">
+            {stats.barangays.map((b) => (
+              <button
+                type="button"
+                class="bgy-btn"
+                data-bgy-btn
+                data-code={b.psgcCode}
+                data-name={b.name.toLowerCase()}
+                data-district={b.district}
+                aria-label={`Select Barangay ${b.name}, District ${b.district}`}
+              >
+                <span class="bgy-btn-name">{b.name}</span>
+                <span class="bgy-btn-district">D{b.district}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Census Table (1990–2020) -->
+    <section class="section-block" aria-labelledby="history-heading">
+      <div class="section-header">
+        <h2 id="history-heading" class="section-title">
+          Historical Census Trajectory (1990–2024)
+        </h2>
+        <p class="section-subtitle">
+          Over three decades, San Jose del Monte transitioned from a rural
+          municipality into Bulacan’s most populous city.
+        </p>
+      </div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th scope="col">Census Year</th>
+                <th scope="col" class="text-right">
+                  Population
+                </th>
+                <th scope="col" class="text-right">
+                  Net Increase
+                </th>
+                <th scope="col" class="text-right">
+                  Annual Growth
+                </th>
+                <th scope="col">Official Declaration</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stats.city.censusFigures.map((row, index) => {
+                const nextRow = stats.city.censusFigures[index + 1];
+                const netIncrease = nextRow
+                  ? row.totalPopulation - nextRow.totalPopulation
+                  : null;
+                return (
+                  <tr>
+                    <td>
+                      <strong>{row.year}</strong>
+                    </td>
+                    <td class="text-right font-mono font-bold text-brand">
+                      {format(row.totalPopulation)}
+                    </td>
+                    <td class="text-right font-mono">
+                      {netIncrease != null ? `+${format(netIncrease)}` : "—"}
+                    </td>
+                    <td class="text-right font-mono">
+                      {row.growthRateAnnual2015_2020
+                        ? `+${row.growthRateAnnual2015_2020}%`
+                        : row.growthRateAnnual2010_2015
+                          ? `+${row.growthRateAnnual2010_2015}%`
+                          : "—"}
+                    </td>
+                    <td>{row.officialDeclaration ?? "—"}</td>
+                    <td>
+                      <a
+                        href={row.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="external-link"
+                      >
+                        {row.source}
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transparency & Data Notes -->
+    <section class="section-block" aria-labelledby="transparency-heading">
+      <div class="section-header">
+        <h2 id="transparency-heading" class="section-title">
+          Data Transparency & Governance Notes
+        </h2>
+      </div>
+
+      <div class="notes-grid">
+        <div class="note-card">
+          <h3 class="note-title">59 vs. 62 Barangays (Muzon Partition)</h3>
+          <p>
+            Under <strong>Republic Act No. 11896</strong> (ratified via
+            plebiscite on March 25, 2023), Barangay Muzon was divided into four
+            independent barangays: <em>Muzon Proper</em>, <em>Muzon East</em>,{" "}
+            <em>Muzon South</em>, and <em>Muzon West</em>.
+          </p>
+          <p>
+            The 2024 census reports populations for all four barangays. The
+            available map still shows their former combined boundary; individual
+            boundaries and areas are not represented.
+          </p>
+        </div>
+
+        <div class="note-card">
+          <h3 class="note-title">Vector Boundary Sources</h3>
+          <p>
+            The origin and reuse terms of the boundary file have not yet been
+            independently verified. The polygons are shown for general
+            reference; their accuracy and current administrative status are not
+            confirmed.
+          </p>
+          <p>
+            These boundaries are provided for civic information and exploration;
+            they do not constitute a legal survey reference.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  import "../scripts/statistics-map";
+</script>
+
+<style>
+  .container {
+    width: min(calc(100% - 2.5rem), var(--container-site));
+    margin-inline: auto;
+  }
+
+  /* Header */
+  .stats-header {
+    background: var(--background-image-civic-soft);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--color-stroke);
+  }
+
+  .stats-title {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
+    font-weight: 800;
+    color: var(--color-navy);
+    letter-spacing: -0.03em;
+  }
+
+  .stats-lead {
+    margin-top: 0.85rem;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--color-muted-copy);
+    max-width: 65ch;
+  }
+
+  .stats-content {
+    padding-block: 3rem 5rem;
+  }
+
+  /* 4 Indicator Cards */
+  .indicators-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .indicators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .indicator-card {
+    background: #fff;
+    border: 1px solid var(--color-stroke);
+    border-radius: 1rem;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(16, 41, 80, 0.04);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .indicator-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 41, 80, 0.08);
+  }
+
+  .indicator-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.75rem;
+    background: var(--color-blue-wash);
+    color: var(--color-brand);
+    margin-bottom: 1rem;
+  }
+
+  .indicator-value {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .indicator-label {
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .indicator-sub {
+    margin-top: 0.25rem;
+    font-size: 0.82rem;
+    color: var(--color-muted-copy);
+  }
+
+  .indicator-sub a {
+    color: var(--color-brand);
+    text-decoration: underline;
+  }
+
+  /* Section Blocks */
+  .section-block {
+    margin-bottom: 4rem;
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 800;
+    color: var(--color-navy);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    margin-top: 0.4rem;
+    font-size: 1.05rem;
+    color: var(--color-muted-copy);
+    max-width: 70ch;
+    line-height: 1.6;
+  }
+
+  /* Pillars Grid */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+  }
+
+  .pillar-card {
+    background: #fff;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(16, 41, 80, 0.03);
+  }
+
+  .pillar-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-brand);
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.1;
+  }
+
+  .pillar-meta {
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--color-muted-copy);
+    line-height: 1.4;
+  }
+
+  /* Active Barangay Detail Banner */
+  .detail-banner {
+    background: linear-gradient(135deg, #092657 0%, #003c9c 100%);
+    color: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 60, 156, 0.15);
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .detail-district-badge {
+    display: inline-block;
+    background: var(--color-sunshine);
+    color: var(--color-navy);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-name {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .detail-psgc-wrap {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .detail-psgc {
+    font-family: monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.35rem;
+    color: #fff;
+    margin-left: 0.3rem;
+  }
+
+  .detail-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .detail-stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .detail-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-top: 0.2rem;
+  }
+
+  .detail-note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 3px solid var(--color-sunshine);
+    padding: 0.65rem 0.85rem;
+    border-radius: 0 0.35rem 0.35rem 0;
+  }
+
+  /* Map Shell */
+  .map-wrapper {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-stroke);
+    background: #eaf2ff;
+    height: 480px;
+    box-shadow: 0 4px 20px rgba(16, 41, 80, 0.05);
+  }
+
+  #barangay-map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .map-prompt {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 249, 255, 0.9);
+    z-index: 2;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid var(--color-stroke);
+    border-top-color: var(--color-brand);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 0.75rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .map-status-line {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-muted-copy);
+    font-weight: 500;
+  }
+
+  .explorer-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .explorer-directory {
+    min-width: 0;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+  .explorer-directory .filter-toolbar {
+    margin-top: 0;
+  }
+  .explorer-directory .barangay-button-grid {
+    grid-template-columns: 1fr;
+    align-content: start;
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    padding: 2px;
+  }
+  @media (max-width: 800px) {
+    .explorer-columns {
+      grid-template-columns: 1fr;
+    }
+    .explorer-directory {
+      height: 400px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bgy-btn {
+      transition: none;
+    }
+  }
+
+  /* Toolbar */
+  .filter-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted-copy);
+    pointer-events: none;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.65rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fff;
+    color: var(--color-ink);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgba(0, 60, 156, 0.12);
+  }
+
+  .district-filter {
+    position: relative;
+    flex: 0 0 46px;
+  }
+  .district-filter summary {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    color: var(--color-brand);
+    background: #fff;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.65rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .district-filter summary::-webkit-details-marker {
+    display: none;
+  }
+  .district-filter summary:focus-visible {
+    outline: 3px solid rgba(0, 60, 156, 0.3);
+    outline-offset: 2px;
+  }
+  .district-filter[data-filtered="true"] summary,
+  .district-filter[open] summary {
+    background: var(--color-blue-wash);
+    border-color: var(--color-brand);
+  }
+  .district-menu {
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    width: 190px;
+    margin: 0;
+    padding: 0.5rem;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.75rem;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(16, 41, 80, 0.16);
+  }
+  .district-menu legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .district-menu label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+  }
+  .district-menu input {
+    position: absolute;
+    opacity: 0;
+  }
+  .district-menu span {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.45rem;
+    font-size: 0.9rem;
+    color: var(--color-ink);
+  }
+  .district-menu small {
+    color: var(--color-muted-copy);
+  }
+  .district-menu label:hover span,
+  .district-menu input:focus-visible + span {
+    background: var(--color-blue-wash);
+  }
+  .district-menu input:focus-visible + span {
+    outline: 2px solid var(--color-brand);
+  }
+  .district-menu input:checked + span {
+    color: var(--color-brand);
+    font-weight: 700;
+    background: var(--color-blue-wash);
+  }
+
+  .list-status {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--color-muted-copy);
+    font-weight: 600;
+  }
+
+  .list-empty {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: var(--color-surface);
+    border-radius: 0.75rem;
+    color: var(--color-muted-copy);
+    text-align: center;
+  }
+
+  /* 59 Barangay Buttons Grid (Better Puerto Princesa style) */
+  .barangay-button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .bgy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    background: #fff;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.5rem;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .bgy-btn:hover {
+    border-color: var(--color-brand);
+    background: var(--color-blue-wash);
+    transform: translateY(-1px);
+  }
+
+  .bgy-btn[data-active="true"] {
+    border-color: var(--color-brand);
+    background: var(--color-brand);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 60, 156, 0.2);
+  }
+
+  .bgy-btn-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bgy-btn[data-active="true"] .bgy-btn-name {
+    color: #fff;
+  }
+
+  .bgy-btn-district {
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--color-surface);
+    color: var(--color-muted-copy);
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .bgy-btn[data-active="true"] .bgy-btn-district {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+
+  /* Table Card */
+  .table-card {
+    background: #fff;
+    border: 1px solid var(--color-stroke);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(16, 41, 80, 0.04);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .stats-table th {
+    background: #f7fafc;
+    color: var(--color-ink);
+    font-weight: 700;
+    padding: 1rem 1.25rem;
+    border-bottom: 2px solid var(--color-stroke);
+    white-space: nowrap;
+  }
+
+  .stats-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-stroke);
+    color: var(--color-ink);
+    vertical-align: middle;
+  }
+
+  .stats-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .stats-table tbody tr:hover {
+    background: var(--color-surface-hover);
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .font-mono {
+    font-family: monospace;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .text-brand {
+    color: var(--color-brand);
+  }
+
+  .external-link {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Notes Grid */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .note-card {
+    background: #fbfcfe;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.875rem;
+    padding: 1.5rem;
+  }
+
+  .note-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .note-card p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--color-muted-copy);
+    margin-bottom: 0.75rem;
+  }
+
+  .note-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .map-wrapper {
+      height: 350px;
+    }
+
+    .detail-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .barangay-button-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
