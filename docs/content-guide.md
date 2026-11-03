@@ -5,3 +5,5 @@ Add one YAML file per service in `src/content/services/`. Its filename becomes t
 Use a reliable source for real information, verify it before adding the entry, and record the verification date. Remove fictional examples when the directory has real content. Recheck published entries regularly.
 
 Optional fields `eligibility`, `fees`, and `processingTime` are text; `requirements`, `steps`, and `keywords` are lists of text. Add only information supported by the source. Keywords may include reviewed search terms in other languages; they do not translate the page.
+
+For sourced procedures, use `steps` in order and include `stepsSource` (direct URL) and `stepsNote` when the steps are historical or otherwise limited. Do not present unverified steps as current.

@@ -9,107 +9,314 @@ export async function getStaticPaths() {
 }
 const { service } = Astro.props;
 const { data } = service;
+const isStale =
+  Date.now() - data.verified.getTime() > 180 * 24 * 60 * 60 * 1000;
+const phonePattern =
+  /(\(\d{3}\)\s*\d{3}-\d{4}|\b09\d{2}[- ]?\d{3}[- ]?\d{4}\b)/g;
+const contactParts = data.contact?.split(phonePattern) ?? [];
+const isPhone = (value: string) =>
+  /^(?:\(\d{3}\)\s*\d{3}-\d{4}|09\d{2}[- ]?\d{3}[- ]?\d{4})$/.test(value);
 ---
 
 <BaseLayout title={data.title}>
   <section class="page-header">
     <div class="container">
-      <a class="text-link back-link" href="/services/">
-        ← All services
-      </a>
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/services/">Services</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{data.title}</span>
+      </nav>
       <h1>{data.title}</h1>
       <p class="page-description">{data.description}</p>
     </div>
   </section>
   <section class="content">
-    <div class="content-card">
-      {data.sample && (
-        <div class="notice">
-          <strong>Fictional example.</strong> This is not a real service or
-          source.
-        </div>
-      )}
-      <h2>Service information</h2>
-      <p>{data.description}</p>
-      {data.eligibility && (
-        <>
-          <h2>Who can use this service</h2>
-          <p>{data.eligibility}</p>
-        </>
-      )}
-      {data.requirements && data.requirements.length > 0 && (
-        <>
-          <h2>What to prepare</h2>
-          <p>Check off the items as you prepare them.</p>
-          <ul class="requirements">
-            {data.requirements.map((requirement) => (
-              <li>
-                <label>
-                  <input type="checkbox" /> {requirement}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-      {data.steps && data.steps.length > 0 && (
-        <>
-          <h2>What to do</h2>
-          <ol>
-            {data.steps.map((step) => (
-              <li>{step}</li>
-            ))}
-          </ol>
-        </>
-      )}
-      {data.fees && (
-        <p>
-          <strong>Fees:</strong> {data.fees}
-        </p>
-      )}
-      {data.processingTime && (
-        <p>
-          <strong>Processing time:</strong> {data.processingTime}
-        </p>
-      )}
-      {data.contact && (
-        <p>
-          <strong>Contact:</strong> {data.contact}
-        </p>
-      )}
-      {data.location && (
-        <p>
-          <strong>Location:</strong> {data.location}
-        </p>
-      )}
-      <div class="source">
-        <p>
-          <strong>Source:</strong>{" "}
-          <a href={data.source}>
-            {data.sample ? "Example source" : "View source"}
-          </a>
-        </p>
-        <p>
-          <strong>Last verified:</strong>{" "}
-          <time datetime={data.verified.toISOString().slice(0, 10)}>
-            {data.verified.toLocaleDateString("en-PH", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              timeZone: "UTC",
-            })}
-          </time>
-          {data.sample && " (example date)"}
-        </p>
+    <div class="service-layout">
+      <div class="content-card">
+        {data.sample && (
+          <div class="notice">
+            <strong>Fictional example.</strong> This is not a real service or
+            source.
+          </div>
+        )}
+        {!data.sample && data.sourceNote && (
+          <div class="notice">{data.sourceNote}</div>
+        )}
+        {(data.office || data.contact || data.location) && (
+          <h2>Office and contact</h2>
+        )}
+        {data.office && (
+          <p>
+            <strong>Responsible office:</strong> {data.office}
+          </p>
+        )}
+        {data.eligibility && (
+          <>
+            <h2>Who can use this service</h2>
+            <p>{data.eligibility}</p>
+          </>
+        )}
+        {data.requirements && data.requirements.length > 0 && (
+          <>
+            <h2>What to prepare</h2>
+            <p>Check off the items as you prepare them.</p>
+            <ul class="requirements" data-checklist={service.id}>
+              {data.requirements.map((requirement) => (
+                <li>
+                  <label>
+                    <input type="checkbox" value={requirement} /> {requirement}
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              class="reset-checklist"
+              data-checklist-reset
+              hidden
+            >
+              Reset checklist
+            </button>
+          </>
+        )}
+        {data.steps && data.steps.length > 0 && (
+          <>
+            <h2>What to do</h2>
+            {data.stepsNote && <p>{data.stepsNote}</p>}
+            <ol class="service-steps">
+              {data.steps.map((step) => (
+                <li>{step}</li>
+              ))}
+            </ol>
+            {data.stepsSource && (
+              <p>
+                <a class="text-link" href={data.stepsSource}>
+                  View the source for these steps
+                </a>
+              </p>
+            )}
+          </>
+        )}
+        {data.fees && (
+          <p>
+            <strong>Fees:</strong> {data.fees}
+          </p>
+        )}
+        {data.processingTime && (
+          <p>
+            <strong>Processing time:</strong> {data.processingTime}
+          </p>
+        )}
+        {data.contact && (
+          <p>
+            <strong>Contact:</strong>{" "}
+            {contactParts.map((part) =>
+              isPhone(part) ? (
+                <a
+                  class="phone-link"
+                  href={`tel:${part.replace(/[^0-9+]/g, "")}`}
+                >
+                  {part}
+                </a>
+              ) : (
+                part
+              ),
+            )}
+          </p>
+        )}
+        {data.location && (
+          <p>
+            <strong>Location:</strong> {data.location}
+          </p>
+        )}
+        {data.relatedEmergency && (
+          <p>
+            <a class="text-link" href="/emergency/">
+              Emergency contacts for traffic accidents
+            </a>
+          </p>
+        )}
+        {!data.sample && !data.requirements?.length && (
+          <div class="information-gap">
+            <h2>Before you visit</h2>
+            <p>
+              Some service details have not yet been confirmed. Contact the
+              office or check the official source for current requirements,
+              fees, and processing times.
+            </p>
+          </div>
+        )}
       </div>
-      <a class="text-link" href="/about/#contribute">
-        Suggest a correction
-      </a>
+      <aside class="source-card" aria-label="Source and verification">
+        {isStale && (
+          <p class="freshness">
+            {data.sourceNote
+              ? "This entry was researched over 6 months ago."
+              : "This entry was verified over 6 months ago."}{" "}
+            Office hours, fees, and requirements may have changed. Please
+            contact the office to confirm current details before visiting.
+          </p>
+        )}
+        {data.sourceNote && <p class="print-source-note">{data.sourceNote}</p>}
+        <div class="source">
+          <p>
+            <strong>Source:</strong>{" "}
+            <a href={data.source}>
+              {data.sample ? "Example source" : "View official source"}
+            </a>
+          </p>
+          {data.sourceSection && (
+            <p>
+              <strong>Section:</strong> {data.sourceSection}
+            </p>
+          )}
+          {data.sourceDate && (
+            <p>
+              <strong>Document:</strong> {data.sourceDate}
+            </p>
+          )}
+          <p>
+            <strong>Research date:</strong>{" "}
+            <time datetime={data.verified.toISOString().slice(0, 10)}>
+              {data.verified.toLocaleDateString("en-PH", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                timeZone: "UTC",
+              })}
+            </time>
+            {data.sample && " (example date)"}
+          </p>
+        </div>
+        <a class="text-link" href="/about/#contribute">
+          Suggest a correction
+        </a>
+      </aside>
     </div>
   </section>
 </BaseLayout>
 
+<script>
+  const checklist = document.querySelector<HTMLElement>("[data-checklist]");
+  const reset = document.querySelector<HTMLButtonElement>(
+    "[data-checklist-reset]",
+  );
+  if (checklist && reset) {
+    const boxes = [
+      ...checklist.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'),
+    ];
+    const key = `checklist:${checklist.dataset.checklist}`;
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem(key) ?? "[]");
+      if (Array.isArray(saved))
+        boxes.forEach((box) => {
+          box.checked = saved.includes(box.value);
+        });
+    } catch {
+      /* Checkboxes still work without storage. */
+    }
+    checklist.addEventListener("change", () => {
+      try {
+        localStorage.setItem(
+          key,
+          JSON.stringify(
+            boxes.filter((box) => box.checked).map((box) => box.value),
+          ),
+        );
+      } catch {
+        /* Storage may be unavailable. */
+      }
+    });
+    reset.addEventListener("click", () => {
+      boxes.forEach((box) => {
+        box.checked = false;
+      });
+      try {
+        localStorage.removeItem(key);
+      } catch {
+        /* Reset the visible checklist even without storage. */
+      }
+    });
+    reset.hidden = false;
+  }
+</script>
+
 <style>
+  .print-source-note {
+    display: none;
+  }
+  .freshness {
+    padding: 0.75rem;
+    border-left: 3px solid var(--color-brand);
+    background: white;
+  }
+  .phone-link {
+    color: var(--color-brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .reset-checklist {
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-brand);
+    border-radius: 0.4rem;
+    color: var(--color-brand);
+    background: white;
+    cursor: pointer;
+  }
+  .service-layout {
+    display: grid;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .source-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.8rem;
+    background: var(--color-surface);
+    overflow-wrap: anywhere;
+  }
+  .source-card .source {
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+  }
+  .source-card p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+  .service-steps {
+    padding-left: 1.5rem;
+  }
+  .service-steps li {
+    padding: 0.25rem 0 0.75rem 0.35rem;
+    line-height: 1.6;
+  }
+  .service-steps li::marker {
+    color: var(--color-brand);
+    font-weight: 700;
+  }
+  .information-gap {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-left: 3px solid var(--color-brand);
+    background: var(--color-blue-wash);
+    border-radius: 0.35rem;
+  }
+  .content-card .information-gap h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+  }
+  .content-card .information-gap p {
+    margin: 0;
+  }
+  @media (min-width: 800px) {
+    .service-layout {
+      grid-template-columns: minmax(0, 1.6fr) minmax(250px, 1fr);
+    }
+  }
   .requirements {
     padding: 0;
     list-style: none;
@@ -118,7 +325,8 @@ const { data } = service;
     display: flex;
     align-items: start;
     gap: 0.75rem;
-    padding-block: 0.5rem;
+    min-height: 44px;
+    padding-block: 0.65rem;
   }
   .requirements input {
     width: 1.3rem;
@@ -129,16 +337,48 @@ const { data } = service;
     margin-block: 0.5rem;
   }
   @media print {
-    .back-link {
+    .hero-breadcrumb,
+    .notice,
+    .reset-checklist {
+      display: none !important;
+    }
+    .print-source-note {
+      display: block;
+    }
+    .page-header,
+    .content-card,
+    .source-card {
+      background: white !important;
+      color: black !important;
+    }
+    .content-card p,
+    .source-card p,
+    .page-header h1,
+    .page-description {
+      color: black !important;
+    }
+    .service-layout {
+      display: block;
+    }
+    .requirements input {
       display: none;
     }
+    .requirements label::before {
+      content: "[ ]";
+      color: black;
+      flex: none;
+    }
+    a {
+      color: black !important;
+    }
+
     .content-card {
       border: 0;
       padding: 0;
     }
   }
   .page-header {
-    padding: 2.25rem 0;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
     border-bottom: 1px solid var(--color-stroke);
     background: var(--background-image-civic-soft);
   }
@@ -161,25 +401,26 @@ const { data } = service;
     background: var(--color-brand);
   }
   .page-header h1 {
-    margin: 1.5rem 0;
-    color: var(--color-ink);
-    font-size: clamp(2rem, 6vw, 4rem);
-    line-height: 1.04;
+    margin: 0;
+    color: var(--color-navy);
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
     font-weight: 800;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.03em;
   }
   .page-header h1 em {
     color: var(--color-brand);
     font-style: normal;
   }
   .page-description {
-    max-width: 31rem;
+    max-width: 65ch;
+    margin-top: 0.85rem;
     color: var(--color-muted-copy);
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.6;
   }
   .content {
-    width: min(calc(100% - 2rem), 850px);
+    width: min(calc(100% - 2rem), var(--container-site));
     margin-inline: auto;
     padding: 2rem 0 3.5rem;
   }
@@ -219,10 +460,7 @@ const { data } = service;
   .text-link:hover {
     text-decoration: underline;
   }
-  .back-link {
-    display: inline-block;
-    margin-bottom: 1.5rem;
-  }
+
   .source {
     margin-top: 2rem;
     padding-top: 1rem;
@@ -232,14 +470,11 @@ const { data } = service;
     color: var(--color-brand);
   }
   @media (min-width: 521px) {
-    .page-header {
-      padding-block: 4rem;
-    }
     .container {
       width: min(calc(100% - 2.5rem), var(--container-site));
     }
     .content {
-      width: min(calc(100% - 2.5rem), 850px);
+      width: min(calc(100% - 2.5rem), var(--container-site));
       padding-block: 3rem 5rem;
     }
   }
