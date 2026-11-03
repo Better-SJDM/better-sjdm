@@ -42,5 +42,5 @@ The CI workflow triggers on:
 4. **Code Style Verification:** Runs `pnpm format:check` to enforce Prettier rules across all markdown, Astro, TS, and JSON files.
 5. **Static Analysis & Linting:** Runs `pnpm lint` via ESLint 9 to detect code quality issues.
 6. **Typechecking & Diagnostics:** Runs `pnpm typecheck` (`astro check`) for TypeScript and Astro component validation.
-7. **Automated Unit Tests:** Runs `pnpm test`, verifying census consistency, PSGC codes, geographic boundary polygons, and editorial text hygiene.
+7. **Automated Unit Tests:** Runs `pnpm test`, verifying census consistency, PSGC codes, and geographic boundary polygons.
 8. **Static Build:** Runs `pnpm build` to confirm all Astro routes render cleanly into static distribution assets.
