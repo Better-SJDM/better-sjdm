@@ -11,6 +11,17 @@ export default [
   })),
   ...astro.configs.recommended,
   {
+    files: ["scripts/**/*.mjs", "tests/**/*.mjs"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        fetch: "readonly",
+        process: "readonly",
+        URL: "readonly",
+      },
+    },
+  },
+  {
     files: ["**/*.astro"],
     languageOptions: { parserOptions: { parser: tseslint.parser } },
   },

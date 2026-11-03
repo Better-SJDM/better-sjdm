@@ -1,24 +1,33 @@
 name: CI
 
 on:
+  push:
+    branches: [main]
   pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
 
 jobs:
   checks:
-    name: Format, lint, typecheck, and build
+    name: Quality checks (format, lint, typecheck, test, build)
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.11.2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
@@ -26,14 +35,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check formatting
+      - name: Check code formatting
         run: pnpm format:check
 
-      - name: Lint
+      - name: Lint codebase
         run: pnpm lint
 
-      - name: Typecheck
+      - name: Run typecheck and Astro diagnostics
         run: pnpm typecheck
 
-      - name: Build
+      - name: Run unit tests
+        run: pnpm test
+
+      - name: Build static site
         run: pnpm build

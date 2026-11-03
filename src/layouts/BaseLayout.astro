@@ -1,5 +1,10 @@
 ---
 import "@/styles/global.css";
+import CityInfo from "../components/site/CityInfo.astro";
+import { emergencyContacts } from "../data/emergency-contacts";
+import chevronIcon from "@tabler/icons/outline/chevron-down.svg?raw";
+import servicesIcon from "@tabler/icons/outline/list-details.svg?raw";
+import phoneIcon from "@tabler/icons/outline/phone-call.svg?raw";
 interface Props {
   title: string;
   description?: string;
@@ -14,7 +19,15 @@ const links = [
   {
     href: "/services/",
     label: "Services",
-    current: path === "/services" || path.startsWith("/services/"),
+    current:
+      path === "/services" ||
+      path.startsWith("/services/") ||
+      path === "/emergency",
+  },
+  {
+    href: "/statistics/",
+    label: "Statistics",
+    current: path === "/statistics",
   },
   { href: "/about/", label: "About", current: path === "/about" },
 ];
@@ -34,9 +47,30 @@ const links = [
       Skip to content
     </a>
     <div class="topline">
-      <div class="topline-inner">
-        A community guide for San Jose del Monte{" "}
-        <span>Made for neighbors, by neighbors</span>
+      <div
+        class="topline-inner"
+        tabindex="0"
+        aria-label="Quick access, scroll horizontally for more information"
+      >
+        <nav class="emergency-nav" aria-label="Emergency assistance">
+          <div
+            class="contact-slideshow"
+            data-contact-slideshow
+            aria-label="Important contacts"
+          >
+            <div class="contact-slides">
+              {emergencyContacts.map((contact) => (
+                <a
+                  data-contact-slide
+                  href={`tel:${contact.number.replaceAll("-", "")}`}
+                >
+                  {contact.name}: {contact.number}
+                </a>
+              ))}
+            </div>
+          </div>
+        </nav>
+        <CityInfo />
       </div>
     </div>
     <header class="site-header">
@@ -47,14 +81,60 @@ const links = [
           </span>
         </a>
         <nav class="desktop-nav" aria-label="Main navigation">
-          {links.map((link) => (
-            <a
-              href={link.href}
-              aria-current={link.current ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.href === "/services/" ? (
+              <div
+                class="nav-group"
+                data-active={link.current ? "true" : undefined}
+              >
+                <a
+                  href={link.href}
+                  aria-current={
+                    link.current && path !== "/emergency" ? "page" : undefined
+                  }
+                >
+                  Services{" "}
+                  <span
+                    class="nav-chevron"
+                    aria-hidden="true"
+                    set:html={chevronIcon}
+                  />
+                </a>
+                <div class="nav-submenu" aria-label="Services links">
+                  <a href="/services/">
+                    <span
+                      class="nav-icon"
+                      aria-hidden="true"
+                      set:html={servicesIcon}
+                    />
+                    <span>
+                      All Services<small>Browse the directory</small>
+                    </span>
+                  </a>
+                  <a
+                    href="/emergency/"
+                    aria-current={path === "/emergency" ? "page" : undefined}
+                  >
+                    <span
+                      class="nav-icon"
+                      aria-hidden="true"
+                      set:html={phoneIcon}
+                    />
+                    <span>
+                      Emergency Hotline<small>Find emergency numbers</small>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <a
+                href={link.href}
+                aria-current={link.current ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            ),
+          )}
         </nav>
         <details class="mobile-menu">
           <summary>
@@ -82,14 +162,36 @@ const links = [
           </summary>
           <nav aria-label="Mobile navigation" class="mobile-nav">
             <div class="mobile-nav-inner">
-              {links.map((link) => (
-                <a
-                  href={link.href}
-                  aria-current={link.current ? "page" : undefined}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {links.map((link) =>
+                link.href === "/services/" ? (
+                  <div class="mobile-service-group">
+                    <a
+                      href="/services/"
+                      aria-current={
+                        path === "/services" || path.startsWith("/services/")
+                          ? "page"
+                          : undefined
+                      }
+                    >
+                      Services
+                    </a>
+                    <a
+                      class="mobile-submenu-link"
+                      href="/emergency/"
+                      aria-current={path === "/emergency" ? "page" : undefined}
+                    >
+                      Emergency Hotline
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href={link.href}
+                    aria-current={link.current ? "page" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </div>
           </nav>
         </details>
@@ -104,17 +206,63 @@ const links = [
           <strong>Better SJDM</strong>
           <p>A community-maintained guide to San Jose del Monte.</p>
         </div>
+        <div class="footer-emergency">
+          <strong>Emergency contacts</strong>
+          {emergencyContacts.map((contact) => (
+            <a href={`tel:${contact.number.replaceAll("-", "")}`}>
+              {contact.name}: {contact.number}
+            </a>
+          ))}
+          <a href="/emergency/">Sources and emergency contacts</a>
+        </div>
         <div>
           <a href="/services/">Services</a>
           <a href="/about/">About &amp; contributing</a>
         </div>
       </div>
       <div class="footer-note">
+        Weather data: <a href="https://open-meteo.com/">Open-Meteo</a> (
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,
+        temperature rounded) · Exchange rates:{" "}
+        <a href="https://github.com/fawazahmed0/exchange-api">Exchange API</a>
+        <br />
         Independent community project · Not an official government website
       </div>
     </footer>
   </body>
 </html>
+
+<script>
+  const slideshow = document.querySelector<HTMLElement>(
+    "[data-contact-slideshow]",
+  );
+  if (slideshow) {
+    const slides = [
+      ...slideshow.querySelectorAll<HTMLElement>("[data-contact-slide]"),
+    ];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (slides.length > 1) {
+      let index = 0;
+      const render = () => {
+        slides.forEach((slide, i) => {
+          slide.hidden = !reducedMotion.matches && i !== index;
+        });
+      };
+      reducedMotion.addEventListener("change", render);
+      window.setInterval(() => {
+        if (
+          !reducedMotion.matches &&
+          !slideshow.matches(":hover") &&
+          !slideshow.contains(document.activeElement)
+        ) {
+          index = (index + 1) % slides.length;
+          render();
+        }
+      }, 8000);
+      render();
+    }
+  }
+</script>
 
 <style>
   .skip-link {
@@ -145,11 +293,65 @@ const links = [
   .topline-inner {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: clamp(1rem, 2vw, 1.5rem);
+    overflow-x: auto;
   }
-  .topline-inner span {
-    display: none;
-    color: var(--color-soft-blue);
+  .emergency-nav {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 1rem;
+    border-right: 1px solid #6d86a8;
+    white-space: nowrap;
+  }
+  .emergency-nav a {
+    color: white;
+    text-decoration: none;
+  }
+  .emergency-nav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .emergency-primary {
+    font-weight: 800;
+    color: #fff2b3 !important;
+    white-space: nowrap;
+  }
+  .contact-slideshow,
+  .contact-slides {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .contact-slides {
+    flex-wrap: nowrap;
+    font-weight: 400;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-contact-slide]:not([hidden]) {
+      animation: contact-appear 350ms ease-out;
+    }
+    @keyframes contact-appear {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  .all-emergency {
+    white-space: nowrap;
+  }
+  .footer-emergency {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
   }
   .site-header {
     position: relative;
@@ -194,6 +396,71 @@ const links = [
     gap: 0.25rem;
     align-items: center;
   }
+  .nav-group {
+    position: relative;
+  }
+  .nav-group > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 44px;
+  }
+  .nav-submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 260px;
+    padding: 0.5rem;
+    border: 1px solid var(--color-stroke);
+    border-radius: 0.6rem;
+    background: white;
+    box-shadow: 0 10px 28px #0926571c;
+  }
+  .nav-group:hover .nav-submenu,
+  .nav-group:focus-within .nav-submenu {
+    display: grid;
+  }
+  .nav-submenu a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 56px;
+    padding: 0.6rem 0.75rem;
+  }
+  .nav-submenu small {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--color-muted-copy);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+  .nav-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 0.5rem;
+    background: var(--color-blue-wash);
+    color: var(--color-brand);
+  }
+  .nav-icon :global(svg) {
+    width: 19px;
+    height: 19px;
+  }
+  .nav-chevron {
+    display: inline-flex;
+  }
+  .nav-chevron :global(svg) {
+    width: 15px;
+    height: 15px;
+  }
+
+  .mobile-nav .mobile-submenu-link {
+    padding-left: 2rem;
+    font-weight: 500;
+  }
   .desktop-nav a,
   .mobile-nav a {
     text-decoration: none;
@@ -204,6 +471,7 @@ const links = [
     border-radius: 0.375rem;
     font-size: 0.875rem;
   }
+  .nav-group[data-active="true"] > a,
   .desktop-nav a:hover,
   .desktop-nav a[aria-current="page"],
   .mobile-nav a:hover,
@@ -310,9 +578,6 @@ const links = [
     .footer-inner,
     .footer-note {
       width: min(calc(100% - 2.5rem), var(--container-site));
-    }
-    .topline-inner span {
-      display: inline;
     }
     .header-inner {
       min-height: 90px;

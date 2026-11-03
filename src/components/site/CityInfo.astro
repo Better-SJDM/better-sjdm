@@ -1,0 +1,61 @@
+<section class="info-strip" aria-label="City information">
+  <div class="info-inner">
+    <div class="info-group" aria-label="Weather and exchange rate">
+      <div class="info-item">
+        <span class="info-label">San Jose del Monte</span>{" "}
+        <span data-weather>Weather unavailable</span>{" "}
+      </div>
+      <div class="info-item">
+        <span data-exchange>USD to PHP unavailable</span>{" "}
+      </div>
+    </div>
+    <time class="info-item" data-local-time>
+      Philippine time unavailable
+    </time>
+    <a class="contribute" href="https://github.com/Better-SJDM/better-sjdm">
+      Want to contribute?
+    </a>
+  </div>
+</section>
+<script>
+  import "../../scripts/city-info";
+</script>
+<style>
+  .info-strip {
+    flex: 1 0 auto;
+    min-width: 0;
+  }
+  .info-inner {
+    padding-block: 0.25rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    color: white;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .info-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .info-group .info-item + .info-item {
+    border-left: 1px solid #6d86a8;
+    padding-left: 0.75rem;
+  }
+  .info-item {
+    white-space: nowrap;
+  }
+  .info-label {
+    font-weight: 500;
+  }
+  .contribute {
+    color: white;
+    font-weight: 400;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

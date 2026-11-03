@@ -21,9 +21,14 @@ const services = (await getCollection("services")).sort((a, b) =>
           community guide.
         </p>
         <ServiceSearch services={services} compact />
+        <a class="browse-services" href="/services/">
+          Browse all services
+        </a>
         <p class="project-note">
-          Independent community project. The service listings are fictional
-          examples.
+          Independent community project, not an official city government
+          website.
+          {services.some(({ data }) => data.sample) &&
+            " Listings marked as fictional are examples."}
         </p>
       </div>
       <div class="hero-emblem" aria-hidden="true">
@@ -46,14 +51,7 @@ const services = (await getCollection("services")).sort((a, b) =>
   .home-intro {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(
-      125deg,
-      #fff4d8 0%,
-      #f5f9ff 38%,
-      #d8eaff 68%,
-      #e8f1ff 100%
-    );
-    background-size: 180% 180%;
+    background: var(--background-image-civic-soft);
     border-bottom: 1px solid var(--color-stroke);
   }
   .hero-orbit {
@@ -71,7 +69,7 @@ const services = (await getCollection("services")).sort((a, b) =>
   .hero-orbit-two {
     width: clamp(13rem, 24vw, 27rem);
     aspect-ratio: 1;
-    bottom: 5%;
+    top: 28rem;
     left: -8rem;
     background: #ffcf5860;
   }
@@ -85,7 +83,7 @@ const services = (await getCollection("services")).sort((a, b) =>
     display: grid;
     gap: 2rem;
     padding-block: clamp(4rem, 8vw, 7rem);
-    align-items: center;
+    align-items: start;
   }
   .intro-copy {
     min-width: 0;
@@ -116,6 +114,13 @@ const services = (await getCollection("services")).sort((a, b) =>
   .intro-inner :global(.search-panel) {
     width: min(100%, 46rem);
     margin-top: 1.5rem;
+  }
+  .browse-services {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-brand);
+    font-weight: 700;
+    text-underline-offset: 4px;
   }
   .hero-emblem {
     position: relative;
@@ -167,9 +172,6 @@ const services = (await getCollection("services")).sort((a, b) =>
     }
     .hero-orbit-one {
       animation: drift 12s ease-in-out infinite alternate;
-    }
-    .hero-orbit-two {
-      animation: drift 15s ease-in-out infinite alternate-reverse;
     }
     .community a {
       transition:

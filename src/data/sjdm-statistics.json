@@ -1,0 +1,1095 @@
+{
+  "city": {
+    "name": "City of San Jose del Monte",
+    "province": "Bulacan",
+    "region": "Region III (Central Luzon)",
+    "psgcCode": "0301420000",
+    "legalStatus": "Component City (converted under RA 8797 on September 10, 2000)",
+    "totalBarangaysCurrent": 62,
+    "totalBarangays2020Census": 59,
+    "landAreaKm2": 105.53,
+    "namriaCalculatedAreaKm2": 107.86,
+    "censusFigures": [
+      {
+        "year": 2024,
+        "referenceDate": "2024-07-01",
+        "totalPopulation": 685688,
+        "source": "Philippine Statistics Authority (PSA) 2024 Census of Population",
+        "sourceUrl": "https://psa.gov.ph/classification/psgc/barangays/0301420000"
+      },
+      {
+        "year": 2020,
+        "referenceDate": "2020-05-01",
+        "publicationDate": "2021-07-06",
+        "officialDeclaration": "Proclamation No. 1179, s. 2021",
+        "totalPopulation": 651813,
+        "householdPopulation": 651240,
+        "households": 156871,
+        "averageHouseholdSize": 4.15,
+        "populationDensityKm2": 6176.6,
+        "growthRateAnnual2015_2020": 2.43,
+        "source": "Philippine Statistics Authority (PSA) 2020 Census of Population and Housing (CPH)",
+        "sourceUrl": "https://psa.gov.ph/content/2020-census-population-and-housing-2020-cph-population-counts-declared-official-president"
+      },
+      {
+        "year": 2015,
+        "referenceDate": "2015-08-01",
+        "publicationDate": "2016-05-18",
+        "officialDeclaration": "Proclamation No. 1078, s. 2016",
+        "totalPopulation": 574089,
+        "growthRateAnnual2010_2015": 4.54,
+        "source": "Philippine Statistics Authority (PSA) 2015 Census of Population (POPCEN 2015)",
+        "sourceUrl": "https://psa.gov.ph/"
+      },
+      {
+        "year": 2010,
+        "referenceDate": "2010-05-01",
+        "publicationDate": "2012-03-30",
+        "officialDeclaration": "Proclamation No. 362, s. 2012",
+        "totalPopulation": 454553,
+        "source": "National Statistics Office (NSO) / PSA 2010 Census of Population and Housing",
+        "sourceUrl": "https://psa.gov.ph/"
+      },
+      {
+        "year": 2000,
+        "referenceDate": "2000-05-01",
+        "publicationDate": "2000-09-04",
+        "officialDeclaration": "Proclamation No. 28, s. 2000",
+        "totalPopulation": 315807,
+        "source": "National Statistics Office (NSO) 2000 Census of Population",
+        "sourceUrl": "https://psa.gov.ph/"
+      },
+      {
+        "year": 1990,
+        "referenceDate": "1990-05-01",
+        "publicationDate": "1991",
+        "totalPopulation": 142047,
+        "source": "National Statistics Office (NSO) 1990 Census of Population",
+        "sourceUrl": "https://psa.gov.ph/"
+      }
+    ],
+    "demographics2020": {
+      "genderBreakdown": {
+        "male": 328094,
+        "female": 323146,
+        "sexRatio": 101.5
+      },
+      "ageDistribution": {
+        "young_0_14": 197500,
+        "workingAge_15_64": 425448,
+        "elderly_65_plus": 28292
+      }
+    },
+    "muzonHistoricalData": {
+      "formerBarangayName": "Muzon",
+      "psgcCodePriorToSplit": "031420007",
+      "population2020": 127506,
+      "population2015": 106603,
+      "population2010": 82319,
+      "population2000": 45959,
+      "splitLaw": "Republic Act No. 11896",
+      "plebisciteDate": "2023-03-25",
+      "newBarangays": [
+        {
+          "name": "Muzon Proper",
+          "psgcCode": "0301420007"
+        },
+        {
+          "name": "Muzon East",
+          "psgcCode": "0301420060"
+        },
+        {
+          "name": "Muzon South",
+          "psgcCode": "0301420061"
+        },
+        {
+          "name": "Muzon West",
+          "psgcCode": "0301420062"
+        }
+      ]
+    },
+    "totalBarangays": 62
+  },
+  "barangays": [
+    {
+      "psgcCode": "0301420001",
+      "name": "Bagong Buhay I",
+      "adm4Name": "Bagong Buhay I",
+      "hasBoundary": true,
+      "areaSqKm": 0.4024,
+      "population": {
+        "2000": 5621,
+        "2010": 6698,
+        "2015": 7258,
+        "2020": 7264,
+        "2024": 7511
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420002",
+      "name": "Dulong Bayan",
+      "adm4Name": "Dulong Bayan",
+      "hasBoundary": true,
+      "areaSqKm": 4.158,
+      "population": {
+        "2000": 5440,
+        "2010": 6292,
+        "2015": 8806,
+        "2020": 11008,
+        "2024": 13389
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420003",
+      "name": "Gaya-gaya",
+      "adm4Name": "Gaya-gaya",
+      "hasBoundary": true,
+      "areaSqKm": 4.7466,
+      "population": {
+        "2000": 7148,
+        "2010": 13727,
+        "2015": 43683,
+        "2020": 56896,
+        "2024": 64241
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420004",
+      "name": "Kaypian",
+      "adm4Name": "Kaypian",
+      "hasBoundary": true,
+      "areaSqKm": 4.383,
+      "population": {
+        "2000": 18530,
+        "2010": 25614,
+        "2015": 38407,
+        "2020": 46045,
+        "2024": 49010
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420005",
+      "name": "Kaybanban",
+      "adm4Name": "Kaybanban",
+      "hasBoundary": true,
+      "areaSqKm": 4.7955,
+      "population": {
+        "2000": 1643,
+        "2010": 2371,
+        "2015": 2974,
+        "2020": 3245,
+        "2024": 4380
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420006",
+      "name": "Minuyan I",
+      "adm4Name": "Minuyan I",
+      "hasBoundary": true,
+      "areaSqKm": 0.1623,
+      "population": {
+        "2000": 3079,
+        "2010": 2861,
+        "2015": 3344,
+        "2020": 3333,
+        "2024": 3828
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420007",
+      "name": "Muzon Proper",
+      "adm4Name": "Muzon",
+      "district": 1,
+      "hasBoundary": true,
+      "areaSqKm": null,
+      "population": {
+        "2000": 47010,
+        "2010": 81947,
+        "2015": 106603,
+        "2020": 127506,
+        "2024": 28138
+      },
+      "note": "The map shows the former combined Muzon boundary, not the separate boundaries of its four barangays."
+    },
+    {
+      "psgcCode": "0301420008",
+      "name": "Poblacion",
+      "adm4Name": "Poblacion",
+      "hasBoundary": true,
+      "areaSqKm": 0.6105,
+      "population": {
+        "2000": 1886,
+        "2010": 2118,
+        "2015": 2161,
+        "2020": 2273,
+        "2024": 2376
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420009",
+      "name": "Santo Cristo",
+      "adm4Name": "Santo Cristo",
+      "hasBoundary": true,
+      "areaSqKm": 6.7187,
+      "population": {
+        "2000": 17840,
+        "2010": 29327,
+        "2015": 39039,
+        "2020": 49579,
+        "2024": 51876
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420010",
+      "name": "Sapang Palay",
+      "adm4Name": "Sapang Palay",
+      "hasBoundary": true,
+      "areaSqKm": 4.399,
+      "population": {
+        "2000": 3576,
+        "2010": 4894,
+        "2015": 5563,
+        "2020": 5804,
+        "2024": 8194
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420011",
+      "name": "Tungkong Mangga",
+      "adm4Name": "Tungkong Mangga",
+      "hasBoundary": true,
+      "areaSqKm": 16.5215,
+      "population": {
+        "2000": 6097,
+        "2010": 10260,
+        "2015": 12856,
+        "2020": 16324,
+        "2024": 17290
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420012",
+      "name": "Citrus",
+      "adm4Name": "Citrus",
+      "hasBoundary": true,
+      "areaSqKm": 0.9113,
+      "population": {
+        "2000": 13066,
+        "2010": 20882,
+        "2015": 20937,
+        "2020": 22893,
+        "2024": 23341
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420013",
+      "name": "San Martin I",
+      "adm4Name": "San Martin I",
+      "hasBoundary": true,
+      "areaSqKm": 0.2165,
+      "population": {
+        "2000": 3207,
+        "2010": 3757,
+        "2015": 3897,
+        "2020": 4095,
+        "2024": 4152
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420014",
+      "name": "Santa Cruz I",
+      "adm4Name": "Sta. Cruz I",
+      "hasBoundary": true,
+      "areaSqKm": 0.2122,
+      "population": {
+        "2000": 2997,
+        "2010": 2711,
+        "2015": 4613,
+        "2020": 4854,
+        "2024": 5076
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420015",
+      "name": "Fatima I",
+      "adm4Name": "Fatima I",
+      "hasBoundary": true,
+      "areaSqKm": 0.1054,
+      "population": {
+        "2000": 2850,
+        "2010": 3070,
+        "2015": 3085,
+        "2020": 3109,
+        "2024": 3349
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420016",
+      "name": "San Pedro",
+      "adm4Name": "San Pedro",
+      "hasBoundary": true,
+      "areaSqKm": 0.7933,
+      "population": {
+        "2000": 12096,
+        "2010": 13866,
+        "2015": 15565,
+        "2020": 16439,
+        "2024": 17246
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420017",
+      "name": "San Rafael II",
+      "adm4Name": "San Rafael II",
+      "hasBoundary": true,
+      "areaSqKm": 0.2703,
+      "population": {
+        "2000": 6080,
+        "2010": 7782,
+        "2015": 8053,
+        "2020": 8139,
+        "2024": 8516
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420018",
+      "name": "Santo Niño I",
+      "adm4Name": "Sto. Niño I",
+      "hasBoundary": true,
+      "areaSqKm": 0.1431,
+      "population": {
+        "2000": 2363,
+        "2010": 2582,
+        "2015": 2770,
+        "2020": 2610,
+        "2024": 2805
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420019",
+      "name": "Assumption",
+      "adm4Name": "Assumption",
+      "hasBoundary": true,
+      "areaSqKm": 0.4083,
+      "population": {
+        "2000": 3424,
+        "2010": 4291,
+        "2015": 4460,
+        "2020": 4362,
+        "2024": 4959
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420020",
+      "name": "Bagong Buhay II",
+      "adm4Name": "Bagong Buhay II",
+      "hasBoundary": true,
+      "areaSqKm": 0.2365,
+      "population": {
+        "2000": 3521,
+        "2010": 4009,
+        "2015": 4301,
+        "2020": 4175,
+        "2024": 4253
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420021",
+      "name": "Bagong Buhay III",
+      "adm4Name": "Bagong Buhay III",
+      "hasBoundary": true,
+      "areaSqKm": 0.3106,
+      "population": {
+        "2000": 3903,
+        "2010": 5388,
+        "2015": 5854,
+        "2020": 5698,
+        "2024": 6404
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420022",
+      "name": "Ciudad Real",
+      "adm4Name": "Ciudad Real",
+      "hasBoundary": true,
+      "areaSqKm": 6.7385,
+      "population": {
+        "2000": 1935,
+        "2010": 2338,
+        "2015": 2519,
+        "2020": 1826,
+        "2024": 1656
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420023",
+      "name": "Fatima II",
+      "adm4Name": "Fatima II",
+      "hasBoundary": true,
+      "areaSqKm": 0.0566,
+      "population": {
+        "2000": 1785,
+        "2010": 1707,
+        "2015": 1855,
+        "2020": 1890,
+        "2024": 2125
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420024",
+      "name": "Fatima III",
+      "adm4Name": "Fatima III",
+      "hasBoundary": true,
+      "areaSqKm": 0.0801,
+      "population": {
+        "2000": 1461,
+        "2010": 1650,
+        "2015": 1922,
+        "2020": 1950,
+        "2024": 2086
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420025",
+      "name": "Fatima IV",
+      "adm4Name": "Fatima IV",
+      "hasBoundary": true,
+      "areaSqKm": 0.0795,
+      "population": {
+        "2000": 1837,
+        "2010": 1974,
+        "2015": 2243,
+        "2020": 2121,
+        "2024": 2141
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420026",
+      "name": "Fatima V",
+      "adm4Name": "Fatima V",
+      "hasBoundary": true,
+      "areaSqKm": 0.1995,
+      "population": {
+        "2000": 2029,
+        "2010": 2407,
+        "2015": 2519,
+        "2020": 2195,
+        "2024": 2512
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420027",
+      "name": "Francisco Homes-Guijo",
+      "adm4Name": "Francisco Homes-Guijo",
+      "hasBoundary": true,
+      "areaSqKm": 0.424,
+      "population": {
+        "2000": 5242,
+        "2010": 5815,
+        "2015": 6132,
+        "2020": 6972,
+        "2024": 7272
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420028",
+      "name": "Francisco Homes-Mulawin",
+      "adm4Name": "Francisco Homes-Mulawin",
+      "hasBoundary": true,
+      "areaSqKm": 0.785,
+      "population": {
+        "2000": 9263,
+        "2010": 10453,
+        "2015": 11608,
+        "2020": 11226,
+        "2024": 11565
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420029",
+      "name": "Francisco Homes-Narra",
+      "adm4Name": "Francisco Homes-Narra",
+      "hasBoundary": true,
+      "areaSqKm": 0.4502,
+      "population": {
+        "2000": 5425,
+        "2010": 6917,
+        "2015": 7152,
+        "2020": 8293,
+        "2024": 8516
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420030",
+      "name": "Francisco Homes-Yakal",
+      "adm4Name": "Francisco Homes-Yakal",
+      "hasBoundary": true,
+      "areaSqKm": 0.3293,
+      "population": {
+        "2000": 2875,
+        "2010": 3167,
+        "2015": 3327,
+        "2020": 3721,
+        "2024": 3793
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420031",
+      "name": "Graceville",
+      "adm4Name": "Graceville",
+      "hasBoundary": true,
+      "areaSqKm": 2.559,
+      "population": {
+        "2000": 22671,
+        "2010": 28563,
+        "2015": 38478,
+        "2020": 42207,
+        "2024": 45775
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420032",
+      "name": "Gumaoc Central",
+      "adm4Name": "Gumaoc Central",
+      "hasBoundary": true,
+      "areaSqKm": 0.1226,
+      "population": {
+        "2000": 2704,
+        "2010": 3392,
+        "2015": 3864,
+        "2020": 4123,
+        "2024": 4364
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420033",
+      "name": "Gumaoc East",
+      "adm4Name": "Gumaoc East",
+      "hasBoundary": true,
+      "areaSqKm": 0.1576,
+      "population": {
+        "2000": 3854,
+        "2010": 4533,
+        "2015": 5352,
+        "2020": 5376,
+        "2024": 5453
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420034",
+      "name": "Gumaoc West",
+      "adm4Name": "Gumaoc West",
+      "hasBoundary": true,
+      "areaSqKm": 0.3106,
+      "population": {
+        "2000": 5288,
+        "2010": 6915,
+        "2015": 7828,
+        "2020": 8885,
+        "2024": 9804
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420035",
+      "name": "Lawang Pari",
+      "adm4Name": "Lawang Pari",
+      "hasBoundary": true,
+      "areaSqKm": 0.3995,
+      "population": {
+        "2000": 3264,
+        "2010": 3949,
+        "2015": 3969,
+        "2020": 5075,
+        "2024": 5202
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420036",
+      "name": "Maharlika",
+      "adm4Name": "Maharlika",
+      "hasBoundary": true,
+      "areaSqKm": 0.2673,
+      "population": {
+        "2000": 2793,
+        "2010": 3127,
+        "2015": 3282,
+        "2020": 3057,
+        "2024": 3028
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420037",
+      "name": "Minuyan II",
+      "adm4Name": "Minuyan II",
+      "hasBoundary": true,
+      "areaSqKm": 0.366,
+      "population": {
+        "2000": 4532,
+        "2010": 5360,
+        "2015": 5641,
+        "2020": 5977,
+        "2024": 6224
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420038",
+      "name": "Minuyan III",
+      "adm4Name": "Minuyan III",
+      "hasBoundary": true,
+      "areaSqKm": 0.1581,
+      "population": {
+        "2000": 2327,
+        "2010": 2703,
+        "2015": 2773,
+        "2020": 2673,
+        "2024": 2807
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420039",
+      "name": "Minuyan IV",
+      "adm4Name": "Minuyan IV",
+      "hasBoundary": true,
+      "areaSqKm": 0.3095,
+      "population": {
+        "2000": 3492,
+        "2010": 3979,
+        "2015": 5191,
+        "2020": 4769,
+        "2024": 4821
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420040",
+      "name": "Minuyan V",
+      "adm4Name": "Minuyan V",
+      "hasBoundary": true,
+      "areaSqKm": 0.1667,
+      "population": {
+        "2000": 2535,
+        "2010": 2215,
+        "2015": 2478,
+        "2020": 2200,
+        "2024": 2708
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420041",
+      "name": "Minuyan Proper",
+      "adm4Name": "Minuyan Proper",
+      "hasBoundary": true,
+      "areaSqKm": 5.5093,
+      "population": {
+        "2000": 4928,
+        "2010": 33928,
+        "2015": 38846,
+        "2020": 46171,
+        "2024": 49058
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420042",
+      "name": "Paradise III",
+      "adm4Name": "Paradise III",
+      "hasBoundary": true,
+      "areaSqKm": 10.8684,
+      "population": {
+        "2000": 2186,
+        "2010": 3420,
+        "2015": 4088,
+        "2020": 5318,
+        "2024": 5691
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420043",
+      "name": "Poblacion I",
+      "adm4Name": "Poblacion I",
+      "hasBoundary": true,
+      "areaSqKm": 0.8303,
+      "population": {
+        "2000": 2882,
+        "2010": 4254,
+        "2015": 4445,
+        "2020": 5617,
+        "2024": 5816
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420044",
+      "name": "San Isidro",
+      "adm4Name": "San Isidro",
+      "hasBoundary": true,
+      "areaSqKm": 11.3416,
+      "population": {
+        "2000": 1811,
+        "2010": 2370,
+        "2015": 5767,
+        "2020": 4282,
+        "2024": 4967
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420045",
+      "name": "San Manuel",
+      "adm4Name": "San Manuel",
+      "hasBoundary": true,
+      "areaSqKm": 0.9903,
+      "population": {
+        "2000": 8107,
+        "2010": 12241,
+        "2015": 11452,
+        "2020": 11432,
+        "2024": 11414
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420046",
+      "name": "San Martin II",
+      "adm4Name": "San Martin II",
+      "hasBoundary": true,
+      "areaSqKm": 0.1161,
+      "population": {
+        "2000": 2771,
+        "2010": 3336,
+        "2015": 3554,
+        "2020": 3527,
+        "2024": 3781
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420047",
+      "name": "San Martin III",
+      "adm4Name": "San Martin III",
+      "hasBoundary": true,
+      "areaSqKm": 0.1523,
+      "population": {
+        "2000": 2609,
+        "2010": 3041,
+        "2015": 3163,
+        "2020": 3695,
+        "2024": 4235
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420048",
+      "name": "San Martin IV",
+      "adm4Name": "San Martin IV",
+      "hasBoundary": true,
+      "areaSqKm": 0.1119,
+      "population": {
+        "2000": 2939,
+        "2010": 3592,
+        "2015": 3830,
+        "2020": 4085,
+        "2024": 4158
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420049",
+      "name": "San Rafael I",
+      "adm4Name": "San Rafael I",
+      "hasBoundary": true,
+      "areaSqKm": 0.0933,
+      "population": {
+        "2000": 3457,
+        "2010": 3107,
+        "2015": 3249,
+        "2020": 3362,
+        "2024": 3483
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420050",
+      "name": "San Rafael III",
+      "adm4Name": "San Rafael III",
+      "hasBoundary": true,
+      "areaSqKm": 0.0999,
+      "population": {
+        "2000": 3112,
+        "2010": 2908,
+        "2015": 3031,
+        "2020": 2718,
+        "2024": 2643
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420051",
+      "name": "San Rafael IV",
+      "adm4Name": "San Rafael IV",
+      "hasBoundary": true,
+      "areaSqKm": 0.1689,
+      "population": {
+        "2000": 5308,
+        "2010": 5257,
+        "2015": 6732,
+        "2020": 6447,
+        "2024": 7019
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420052",
+      "name": "San Rafael V",
+      "adm4Name": "San Rafael V",
+      "hasBoundary": true,
+      "areaSqKm": 0.0752,
+      "population": {
+        "2000": 2544,
+        "2010": 2807,
+        "2015": 2982,
+        "2020": 2844,
+        "2024": 3088
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420053",
+      "name": "San Roque",
+      "adm4Name": "San Roque",
+      "hasBoundary": true,
+      "areaSqKm": 3.1823,
+      "population": {
+        "2000": 1000,
+        "2010": 1617,
+        "2015": 2188,
+        "2020": 2492,
+        "2024": 2657
+      },
+      "note": null,
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420054",
+      "name": "Santa Cruz II",
+      "adm4Name": "Santa Cruz II",
+      "hasBoundary": true,
+      "areaSqKm": 0.1085,
+      "population": {
+        "2000": 2798,
+        "2010": 3078,
+        "2015": 3110,
+        "2020": 3405,
+        "2024": 3558
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420055",
+      "name": "Santa Cruz III",
+      "adm4Name": "Santa Cruz III",
+      "hasBoundary": true,
+      "areaSqKm": 0.0956,
+      "population": {
+        "2000": 2058,
+        "2010": 2440,
+        "2015": 2829,
+        "2020": 3029,
+        "2024": 3216
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420056",
+      "name": "Santa Cruz IV",
+      "adm4Name": "Santa Cruz IV",
+      "hasBoundary": true,
+      "areaSqKm": 0.1046,
+      "population": {
+        "2000": 2623,
+        "2010": 3011,
+        "2015": 3132,
+        "2020": 3175,
+        "2024": 3276
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420057",
+      "name": "Santa Cruz V",
+      "adm4Name": "Santa Cruz V",
+      "hasBoundary": true,
+      "areaSqKm": 0.1305,
+      "population": {
+        "2000": 3128,
+        "2010": 3500,
+        "2015": 3957,
+        "2020": 3811,
+        "2024": 3844
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420058",
+      "name": "Santo Niño II",
+      "adm4Name": "Santo Niño II",
+      "hasBoundary": true,
+      "areaSqKm": 0.2611,
+      "population": {
+        "2000": 2807,
+        "2010": 2808,
+        "2015": 3046,
+        "2020": 3746,
+        "2024": 3879
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420059",
+      "name": "San Martin de Porres",
+      "adm4Name": "St. Martin de Porres",
+      "hasBoundary": true,
+      "areaSqKm": 0.2112,
+      "population": {
+        "2000": 2050,
+        "2010": 2227,
+        "2015": 2326,
+        "2020": 2470,
+        "2024": 2557
+      },
+      "note": null,
+      "district": 2
+    },
+    {
+      "psgcCode": "0301420060",
+      "name": "Muzon East",
+      "adm4Name": "Muzon",
+      "hasBoundary": false,
+      "areaSqKm": null,
+      "population": {
+        "2024": 36664
+      },
+      "note": "The map shows the former combined Muzon boundary, not the separate boundaries of its four barangays.",
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420061",
+      "name": "Muzon South",
+      "adm4Name": "Muzon",
+      "hasBoundary": false,
+      "areaSqKm": null,
+      "population": {
+        "2024": 49090
+      },
+      "note": "The map shows the former combined Muzon boundary, not the separate boundaries of its four barangays.",
+      "district": 1
+    },
+    {
+      "psgcCode": "0301420062",
+      "name": "Muzon West",
+      "adm4Name": "Muzon",
+      "hasBoundary": false,
+      "areaSqKm": null,
+      "population": {
+        "2024": 9408
+      },
+      "note": "The map shows the former combined Muzon boundary, not the separate boundaries of its four barangays.",
+      "district": 1
+    }
+  ]
+}
