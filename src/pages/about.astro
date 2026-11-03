@@ -5,6 +5,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 <BaseLayout title="About">
   <section class="page-header">
     <div class="container">
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">About</span>
+      </nav>
       <h1>
         Made for our city,
         <br />
@@ -23,9 +28,45 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         del Monte. It is not an official city government website.
       </p>
       <p>
-        The directory currently contains fictional examples while the project is
-        being built. Future entries should link to reliable sources and show
-        when they were last verified.
+        Service entries link to their sources and show when their information
+        was reviewed. Confirm current details with the responsible office.
+      </p>
+      <h2>Our city</h2>
+      <p>
+        San Jose del Monte is a city in Bulacan, Central Luzon. The 2024 census
+        counted 685,688 residents across 62 barangays.{" "}
+        <a
+          class="text-link"
+          href="https://psa.gov.ph/classification/psgc/barangays/0301420000"
+        >
+          Source: Philippine Statistics Authority
+        </a>
+      </p>
+      <h2>A brief history</h2>
+      <p>
+        The city government traces the municipality’s founding to March 2, 1752.
+        The Sapang Palay resettlement area opened in 1961, and San Jose del
+        Monte became a component city in 2000.{" "}
+        <a
+          class="text-link"
+          href="https://csjdm.gov.ph/history-of-san-jose-del-monte/"
+        >
+          Source: City Government history
+        </a>
+      </p>
+      <p>
+        In 2023, the former barangay of Muzon was divided into four barangays.{" "}
+        <a
+          class="text-link"
+          href="https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/2/95888"
+        >
+          Source: Republic Act No. 11896
+        </a>
+      </p>
+      <p>
+        <a class="text-link" href="/statistics/">
+          Explore city statistics and barangays
+        </a>
       </p>
       <h2 id="contribute">Help improve the guide</h2>
       <p>
@@ -45,7 +86,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <style>
   .page-header {
-    padding: 2.25rem 0;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
     border-bottom: 1px solid var(--color-stroke);
     background: var(--background-image-civic-soft);
   }
@@ -68,25 +109,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     background: var(--color-brand);
   }
   .page-header h1 {
-    margin: 1.5rem 0;
-    color: var(--color-ink);
-    font-size: clamp(2rem, 6vw, 4rem);
-    line-height: 1.04;
+    margin: 0;
+    color: var(--color-navy);
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
     font-weight: 800;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.03em;
   }
   .page-header h1 em {
     color: var(--color-brand);
     font-style: normal;
   }
   .page-description {
-    max-width: 31rem;
+    max-width: 65ch;
+    margin-top: 0.85rem;
     color: var(--color-muted-copy);
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.6;
   }
   .content {
-    width: min(calc(100% - 2rem), 850px);
+    width: min(calc(100% - 2rem), var(--container-site));
     margin-inline: auto;
     padding: 2rem 0 3.5rem;
   }
@@ -119,14 +161,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     text-decoration: underline;
   }
   @media (min-width: 521px) {
-    .page-header {
-      padding-block: 4rem;
-    }
     .container {
       width: min(calc(100% - 2.5rem), var(--container-site));
     }
     .content {
-      width: min(calc(100% - 2.5rem), 850px);
+      width: min(calc(100% - 2.5rem), var(--container-site));
       padding-block: 3rem 5rem;
     }
   }

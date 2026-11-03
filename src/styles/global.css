@@ -76,7 +76,12 @@
     var(--color-sky-light) 52%,
     var(--color-sky-mid) 100%
   );
-  --background-image-civic-soft: #f8f5ee;
+  --background-image-civic-soft: linear-gradient(
+    135deg,
+    #fff7dc 0%,
+    #f4f8fe 45%,
+    #e6effc 100%
+  );
   --background-image-civic-nav: #092657;
   --background-image-civic-card: #fff;
   --shadow-panel: 0 16px 40px #183b6814;
@@ -143,7 +148,8 @@ summary:focus-visible {
   .site-header,
   .topline,
   .site-footer,
-  .skip-link {
+  .skip-link,
+  .search-panel {
     display: none !important;
   }
   body {
@@ -153,4 +159,70 @@ summary:focus-visible {
 }
 [hidden] {
   display: none !important;
+}
+
+.hero-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-muted-copy);
+}
+.hero-breadcrumb a {
+  color: var(--color-brand);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.hero-breadcrumb a:hover,
+.hero-breadcrumb a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero-breadcrumb span[aria-hidden] {
+  color: var(--color-stroke);
+  user-select: none;
+}
+.hero-breadcrumb [aria-current="page"] {
+  color: var(--color-navy);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-brand);
+}
+
+/* Keep native scrolling while matching the site's blue palette. */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #5d83b5 #edf3fa;
+  }
+}
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+*::-webkit-scrollbar-track {
+  background: #edf3fa;
+}
+*::-webkit-scrollbar-thumb {
+  background: #5d83b5;
+  border: 2px solid #edf3fa;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #003c9c;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import "@awesome.me/webawesome/dist/styles/webawesome.css";
 interface Props {
   services: CollectionEntry<"services">[];
   compact?: boolean;
@@ -40,38 +41,42 @@ const categories = [
       </div>
     </div>
   )}
-  <p
-    class="results-label"
-    aria-live="polite"
-    data-results-label
-    hidden={compact}
-  >
-    {services.length
-      ? `${services.length} ${services.length === 1 ? "service" : "services"}`
-      : "No services yet"}
-  </p>
-  <div class="results" data-search-results hidden={compact}>
-    {services.map(({ id, data }) => (
-      <a
-        class="result"
-        href={`/services/${id}/`}
-        data-service-item
-        data-search={`${data.title} ${data.description} ${data.category} ${(data.keywords ?? []).join(" ")}`.toLowerCase()}
-      >
-        <strong>{data.title}</strong>
-        <span>
-          {data.category}
-          {data.sample && " · Fictional example"}
-        </span>
-        {!compact && <span>{data.description}</span>}
-      </a>
-    ))}
+  <div class="results-area">
+    <p
+      class="results-label"
+      aria-live="polite"
+      data-results-label
+      hidden={compact}
+    >
+      {services.length
+        ? `${services.length} ${services.length === 1 ? "service" : "services"}`
+        : "No services yet"}
+    </p>
+    <div class="results" data-search-results hidden={compact}>
+      {services.map(({ id, data }) => (
+        <a
+          class="result"
+          href={`/services/${id}/`}
+          data-service-item
+          data-search={`${data.title} ${data.description} ${data.category} ${(data.keywords ?? []).join(" ")}`.toLowerCase()}
+        >
+          <strong>{data.title}</strong>
+          <span>
+            {data.category}
+            {data.office && ` · ${data.office}`}
+            {data.sample && " · Fictional example"}
+          </span>
+          {!compact && <span>{data.description}</span>}
+        </a>
+      ))}
+    </div>
+    <p class="empty" hidden>
+      No services match your search. Try another word or clear your search.
+    </p>
   </div>
-  <p class="empty" hidden>
-    No services match your search. Try another word or browse a category.
-  </p>
 </div>
 <script>
+  import "@awesome.me/webawesome/dist/components/input/input.js";
   import "../../scripts/service-search";
 </script>
 <style>
@@ -83,6 +88,7 @@ const categories = [
     box-shadow: 0 14px 36px #09265714;
   }
   .search-panel.compact {
+    position: relative;
     padding: 0;
     background: transparent;
     border: 0;
@@ -108,7 +114,8 @@ const categories = [
     gap: 0.6rem;
     align-items: stretch;
   }
-  .compact input {
+  .compact input,
+  .compact wa-input {
     flex: 1 1 15rem;
     width: auto;
     min-width: 0;
@@ -117,6 +124,49 @@ const categories = [
     padding-inline: 1.1rem;
     border-color: #8da6c7;
     box-shadow: 0 8px 24px #09265712;
+  }
+  wa-input {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    --wa-form-control-height: 3rem;
+  }
+  .compact wa-input {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    --wa-form-control-height: 3.625rem;
+  }
+  .compact wa-input::part(form-control-label) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  wa-input::part(base) {
+    border-radius: 0.65rem;
+    border-color: #8da6c7;
+    background: white;
+  }
+  .compact .results-area {
+    margin-top: 1rem;
+    max-height: 18rem;
+    overflow-y: auto;
+    border-radius: 0.75rem;
+    background: white;
+    box-shadow: 0 12px 28px #09265724;
+  }
+  .compact .results-area:has(.results-label[hidden]) {
+    display: none;
+  }
+  .compact .results-label,
+  .compact .empty {
+    margin: 0;
+    padding: 0.8rem 1rem;
+  }
+  .compact .search-form button {
+    min-height: 58px;
   }
   .search-form button {
     min-height: 48px;

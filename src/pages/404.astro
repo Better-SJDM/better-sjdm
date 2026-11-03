@@ -27,7 +27,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <style>
   .page-header {
-    padding: 2.25rem 0;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
     border-bottom: 1px solid var(--color-stroke);
     background: var(--background-image-civic-soft);
   }
@@ -50,22 +50,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     background: var(--color-brand);
   }
   .page-header h1 {
-    margin: 1.5rem 0;
-    color: var(--color-ink);
-    font-size: clamp(2rem, 6vw, 4rem);
-    line-height: 1.04;
+    margin: 0;
+    color: var(--color-navy);
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    line-height: 1.1;
     font-weight: 800;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.03em;
   }
   .page-header h1 em {
     color: var(--color-brand);
     font-style: normal;
   }
   .page-description {
-    max-width: 31rem;
+    max-width: 65ch;
+    margin-top: 0.85rem;
     color: var(--color-muted-copy);
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.6;
   }
   .text-link {
     color: var(--color-brand);
@@ -99,9 +100,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     background: var(--color-brand-hover);
   }
   @media (min-width: 521px) {
-    .page-header {
-      padding-block: 4rem;
-    }
     .container {
       width: min(calc(100% - 2.5rem), var(--container-site));
     }

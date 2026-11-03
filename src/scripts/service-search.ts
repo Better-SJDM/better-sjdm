@@ -1,13 +1,30 @@
 for (const container of document.querySelectorAll<HTMLElement>(
   "[data-service-search]",
 )) {
-  const input = container.querySelector<HTMLInputElement>("input");
+  const nativeInput = container.querySelector<HTMLInputElement>("input");
+  if (!nativeInput) continue;
+  const input = document.createElement("wa-input") as HTMLElement & {
+    value: string;
+  };
+  for (const { name, value } of nativeInput.attributes) {
+    input.setAttribute(name, value);
+  }
+  container.querySelector(`label[for="${nativeInput.id}"]`)?.remove();
+  input.setAttribute(
+    "label",
+    nativeInput.id === "home-search"
+      ? "Search services"
+      : "Search by name, description, or category",
+  );
+  input.setAttribute("with-clear", "");
+  nativeInput.replaceWith(input);
   const items = [
     ...container.querySelectorAll<HTMLElement>("[data-service-item]"),
   ];
   const empty = container.querySelector<HTMLElement>(".empty");
   const label = container.querySelector<HTMLElement>("[data-results-label]");
   const results = container.querySelector<HTMLElement>("[data-search-results]");
+  const categories = container.querySelector<HTMLElement>(".categories");
   if (!input || !empty || !label) continue;
   const defaultLabel = label.textContent?.trim() ?? "Services";
   if (input.id === "directory-search")
@@ -15,6 +32,7 @@ for (const container of document.querySelectorAll<HTMLElement>(
   const update = () => {
     const query = input.value.trim().toLowerCase();
     if (input.id === "home-search") {
+      if (categories) categories.hidden = Boolean(query);
       label.hidden = !query;
       if (results) results.hidden = !query;
     }
