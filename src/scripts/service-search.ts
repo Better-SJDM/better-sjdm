@@ -27,10 +27,29 @@ for (const container of document.querySelectorAll<HTMLElement>(
   const categories = container.querySelector<HTMLElement>(".categories");
   if (!input || !empty || !label) continue;
   const defaultLabel = label.textContent?.trim() ?? "Services";
-  if (input.id === "directory-search")
-    input.value = new URLSearchParams(location.search).get("q") ?? "";
+
+  const form = container.querySelector<HTMLFormElement>("form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      const q = input.value?.trim() ?? "";
+      if (input.id === "home-search") {
+        e.preventDefault();
+        window.location.href = `/services/${q ? `?q=${encodeURIComponent(q)}` : ""}`;
+      }
+    });
+  }
+
+  const initialQuery =
+    input.id === "directory-search"
+      ? (new URLSearchParams(location.search).get("q") ?? "")
+      : "";
+  if (initialQuery) {
+    input.value = initialQuery;
+    input.setAttribute("value", initialQuery);
+  }
+
   const update = () => {
-    const query = input.value.trim().toLowerCase();
+    const query = (input.value ?? "").trim().toLowerCase();
     if (input.id === "home-search") {
       if (categories) categories.hidden = Boolean(query);
       label.hidden = !query;
@@ -46,6 +65,23 @@ for (const container of document.querySelectorAll<HTMLElement>(
       ? `${visible} ${visible === 1 ? "service" : "services"} found`
       : defaultLabel;
   };
+
   input.addEventListener("input", update);
+  input.addEventListener("wa-input", update);
+  input.addEventListener("wa-clear", () => {
+    input.value = "";
+    input.setAttribute("value", "");
+    update();
+  });
+
+  if ("customElements" in window) {
+    void customElements.whenDefined("wa-input").then(() => {
+      if (initialQuery) {
+        input.value = initialQuery;
+      }
+      update();
+    });
+  }
+
   update();
 }
