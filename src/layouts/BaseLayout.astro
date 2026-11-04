@@ -13,10 +13,11 @@ const {
 } = Astro.props;
 const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const links = [
-  { href: "/", label: "Home", current: path === "/" },
+  { href: "/", label: "Home", fil: "Tahanan", current: path === "/" },
   {
     href: "/services/",
     label: "Services",
+    fil: "Mga serbisyo",
     current:
       path === "/services" ||
       path.startsWith("/services/") ||
@@ -25,9 +26,15 @@ const links = [
   {
     href: "/statistics/",
     label: "Statistics",
+    fil: "Mga estadistika",
     current: path === "/statistics",
   },
-  { href: "/about/", label: "About", current: path === "/about" },
+  {
+    href: "/about/",
+    label: "About",
+    fil: "Tungkol sa amin",
+    current: path === "/about",
+  },
 ];
 ---
 
@@ -41,16 +48,53 @@ const links = [
     <title>{title} | Better SJDM</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">
+    <a class="skip-link" href="#main" data-filipino="Lumaktaw sa nilalaman">
       Skip to content
     </a>
     <div class="topline">
       <div class="topline-inner">
+        <div
+          class="contact-slideshow"
+          data-contact-slideshow
+          aria-label="Emergency contacts"
+        >
+          {emergencyContacts.map((contact, index) => (
+            <a
+              data-contact-slide
+              href={`tel:${contact.dialNumber}`}
+              hidden={index !== 0}
+            >
+              {contact.name}: {contact.number}
+            </a>
+          ))}
+        </div>
         <nav class="utility-nav" aria-label="Quick links">
-          <a href="/emergency/">Emergency contacts</a>
-          <a href="https://csjdm.gov.ph/">
-            Official city website <span aria-hidden="true">↗</span>
+          <a href="/emergency/" data-filipino="Mga numerong pang-emergency">
+            Emergency contacts
           </a>
+          <a href="https://csjdm.gov.ph/">
+            <span data-filipino="Opisyal na website ng lungsod">
+              Official city website
+            </span>{" "}
+            <span aria-hidden="true">↗</span>
+          </a>
+          <div
+            class="language-switch"
+            role="group"
+            aria-label="Language / Wika"
+          >
+            <button type="button" data-language="en" aria-pressed="true">
+              English
+            </button>
+            <button
+              type="button"
+              data-language="fil"
+              aria-pressed="false"
+              lang="fil"
+            >
+              Filipino
+            </button>
+          </div>
         </nav>
       </div>
     </div>
@@ -68,31 +112,51 @@ const links = [
                 class="nav-group"
                 data-active={link.current ? "true" : undefined}
               >
-                <a
-                  href={link.href}
-                  aria-current={
-                    link.current && path !== "/emergency" ? "page" : undefined
-                  }
+                <button
+                  type="button"
+                  class="nav-trigger"
+                  aria-expanded="false"
+                  aria-controls="services-menu"
+                  hidden
                 >
-                  Services{" "}
+                  <span data-filipino="Mga serbisyo">Services</span>{" "}
                   <span
                     class="nav-chevron"
                     aria-hidden="true"
                     set:html={chevronIcon}
                   />
-                </a>
-                <div class="nav-submenu" aria-label="Services links">
+                </button>
+                <noscript>
+                  <a href="/services/">Services</a>
+                </noscript>
+                <div
+                  id="services-menu"
+                  class="nav-submenu"
+                  aria-label="Services links"
+                  hidden
+                >
                   <a
                     href="/services/"
                     aria-current={path === "/services" ? "page" : undefined}
                   >
-                    All Services
+                    <span data-filipino="Lahat ng serbisyo">All Services</span>
                   </a>
                   <a
                     href="/emergency/"
                     aria-current={path === "/emergency" ? "page" : undefined}
                   >
-                    Emergency Hotlines
+                    <span data-filipino="Mga numerong pang-emergency">
+                      Emergency Hotlines
+                    </span>
+                  </a>
+                  <a href="/offices/" data-filipino="Mga tanggapan ng lungsod">
+                    City offices
+                  </a>
+                  <a
+                    href="/online-services/"
+                    data-filipino="Mga online na serbisyo"
+                  >
+                    Online services
                   </a>
                 </div>
               </div>
@@ -101,7 +165,7 @@ const links = [
                 href={link.href}
                 aria-current={link.current ? "page" : undefined}
               >
-                {link.label}
+                <span data-filipino={link.fil}>{link.label}</span>
               </a>
             ),
           )}
@@ -128,7 +192,7 @@ const links = [
             >
               <path d="M5 5l14 14M19 5L5 19"></path>
             </svg>
-            Menu
+            <span data-filipino="Menu">Menu</span>
           </summary>
           <nav aria-label="Mobile navigation" class="mobile-nav">
             <div class="mobile-nav-inner">
@@ -143,14 +207,30 @@ const links = [
                           : undefined
                       }
                     >
-                      Services
+                      <span data-filipino="Mga serbisyo">Services</span>
                     </a>
                     <a
                       class="mobile-submenu-link"
                       href="/emergency/"
                       aria-current={path === "/emergency" ? "page" : undefined}
                     >
-                      Emergency Hotlines
+                      <span data-filipino="Mga numerong pang-emergency">
+                        Emergency Hotlines
+                      </span>
+                    </a>
+                    <a
+                      class="mobile-submenu-link"
+                      href="/offices/"
+                      data-filipino="Mga tanggapan ng lungsod"
+                    >
+                      City offices
+                    </a>
+                    <a
+                      class="mobile-submenu-link"
+                      href="/online-services/"
+                      data-filipino="Mga online na serbisyo"
+                    >
+                      Online services
                     </a>
                   </div>
                 ) : (
@@ -158,7 +238,7 @@ const links = [
                     href={link.href}
                     aria-current={link.current ? "page" : undefined}
                   >
-                    {link.label}
+                    <span data-filipino={link.fil}>{link.label}</span>
                   </a>
                 ),
               )}
@@ -168,6 +248,10 @@ const links = [
       </div>
     </header>
     <main id="main">
+      <p class="language-notice" data-language-notice lang="fil" hidden>
+        Isinasalin pa ang site. Ang ilang impormasyon at gabay ay nasa English
+        pa.
+      </p>
       {path !== "/" && <CityInfo />}
       <slot />
     </main>
@@ -202,6 +286,58 @@ const links = [
     </footer>
   </body>
 </html>
+
+<script>
+  import "../scripts/language";
+  const slideshow = document.querySelector<HTMLElement>(
+    "[data-contact-slideshow]",
+  );
+  if (slideshow) {
+    const slides = [
+      ...slideshow.querySelectorAll<HTMLElement>("[data-contact-slide]"),
+    ];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let index = 0;
+    window.setInterval(() => {
+      if (
+        slides.length < 2 ||
+        reducedMotion.matches ||
+        slideshow.matches(":hover") ||
+        slideshow.contains(document.activeElement)
+      )
+        return;
+      slides[index].hidden = true;
+      index = (index + 1) % slides.length;
+      slides[index].hidden = false;
+    }, 8000);
+  }
+  const menu = document.querySelector<HTMLElement>(".nav-group");
+  const menuButton = menu?.querySelector<HTMLButtonElement>(".nav-trigger");
+  const submenu = menu?.querySelector<HTMLElement>(".nav-submenu");
+  const setMenuOpen = (open: boolean) => {
+    if (!menuButton || !submenu) return;
+    menuButton.setAttribute("aria-expanded", String(open));
+    submenu.hidden = !open;
+  };
+  if (menuButton) {
+    menuButton.hidden = false;
+    menuButton.addEventListener("click", () =>
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true"),
+    );
+  }
+  document.addEventListener("click", (event) => {
+    if (menu && !menu.contains(event.target as Node)) setMenuOpen(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      menuButton?.getAttribute("aria-expanded") === "true"
+    ) {
+      setMenuOpen(false);
+      menuButton.focus();
+    }
+  });
+</script>
 
 <style>
   .skip-link {
@@ -242,6 +378,24 @@ const links = [
     align-items: center;
     gap: 0.25rem 1.25rem;
   }
+  .contact-slideshow {
+    min-width: 0;
+  }
+  .contact-slideshow a {
+    color: white;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .contact-slideshow a:hover {
+    text-decoration: underline;
+  }
+  .contact-slideshow a:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+  }
+  .contact-slideshow a[hidden] {
+    display: none;
+  }
   .utility-nav a {
     display: inline-flex;
     align-items: center;
@@ -254,6 +408,35 @@ const links = [
   .utility-nav a:focus-visible {
     outline: 2px solid white;
     outline-offset: 3px;
+  }
+  .language-switch {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+  .language-switch button {
+    min-height: 38px;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid transparent;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+  .language-switch button[aria-pressed="true"] {
+    border-color: #b8d1ee;
+    background: #ffffff20;
+  }
+  .language-switch button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+  .language-notice {
+    padding: 0.65rem 1rem;
+    text-align: center;
+    background: #fff5d7;
+    color: #342800;
   }
   @media (max-width: 640px) {
     .topline-inner {
@@ -308,11 +491,17 @@ const links = [
     gap: 0.35rem;
     align-items: center;
   }
+  .mobile-menu,
+  .mobile-menu[open] {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
   .nav-group {
     position: relative;
   }
   .desktop-nav a,
-  .nav-group > a {
+  .nav-group > .nav-trigger {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -327,11 +516,27 @@ const links = [
       background-color 0.15s ease,
       color 0.15s ease;
   }
-  .nav-group[data-active="true"] > a,
+  .nav-group > .nav-trigger {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    line-height: inherit;
+  }
+  .nav-group > .nav-trigger[hidden] {
+    display: none;
+  }
+  .mobile-menu[open] > summary {
+    margin-inline: 0;
+  }
+  .mobile-menu > summary::after {
+    content: none;
+  }
+  .nav-group[data-active="true"] > .nav-trigger,
   .desktop-nav a:hover,
   .desktop-nav a[aria-current="page"],
-  .nav-group:hover > a,
-  .nav-group:focus-within > a {
+  .nav-group > .nav-trigger[aria-expanded="true"],
+  .nav-group:focus-within > .nav-trigger {
     background: var(--color-blue-wash);
     color: var(--color-brand);
   }
@@ -339,8 +544,7 @@ const links = [
     display: inline-flex;
     transition: transform 0.2s ease;
   }
-  .nav-group:hover .nav-chevron,
-  .nav-group:focus-within .nav-chevron {
+  .nav-trigger[aria-expanded="true"] .nav-chevron {
     transform: rotate(180deg);
   }
   .nav-chevron :global(svg) {
@@ -350,7 +554,7 @@ const links = [
   .nav-submenu {
     display: none;
     position: absolute;
-    top: calc(100% + 0.35rem);
+    top: 100%;
     left: 0;
     width: 250px;
     max-height: min(78vh, 520px);
@@ -364,8 +568,7 @@ const links = [
       0 2px 6px rgba(9, 38, 87, 0.04);
     z-index: 50;
   }
-  .nav-group:hover .nav-submenu,
-  .nav-group:focus-within .nav-submenu {
+  .nav-group .nav-submenu:not([hidden]) {
     display: flex;
     flex-direction: column;
     gap: 2px;

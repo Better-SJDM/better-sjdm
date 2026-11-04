@@ -15,18 +15,30 @@ const services = (await getCollection("services")).sort((a, b) =>
     <div class="intro-inner">
       <div class="intro-copy">
         <h1>Kumusta, San Joseños.</h1>
-        <p>
+        <p data-filipino="Hanapin ang mga serbisyo at impormasyong kailangan mo sa iisang gabay para sa komunidad.">
           Find local services and the information you need, together in one
           community guide.
         </p>
         <ServiceSearch services={services} compact />
         <div class="hero-links">
-          <a href="/services/">Browse all services</a>
-          <a href="/emergency/">Emergency contacts</a>
+          <a href="/services/" data-filipino="Mga serbisyo">
+            Services
+          </a>
+          <a href="/offices/" data-filipino="Mga tanggapan ng lungsod">
+            City offices
+          </a>
+          <a href="/online-services/" data-filipino="Mga online na serbisyo">
+            Online services
+          </a>
+          <a href="/emergency/" data-filipino="Mga numerong pang-emergency">
+            Emergency contacts
+          </a>
         </div>
         <p class="project-note">
-          Independent community project, not an official city government
-          website.
+          <span data-filipino="Malayang proyekto ng komunidad; hindi ito opisyal na website ng pamahalaang lungsod.">
+            Independent community project, not an official city government
+            website.
+          </span>
           {services.some(({ data }) => data.sample) &&
             " Listings marked as fictional are examples."}
         </p>
@@ -39,12 +51,19 @@ const services = (await getCollection("services")).sort((a, b) =>
   <CityInfo />
   <section class="community">
     <div>
-      <h2>Help make this guide useful.</h2>
-      <p>
+      <h2 data-filipino="Tulungan kaming pagbutihin ang gabay na ito.">
+        Help make this guide useful.
+      </h2>
+      <p data-filipino="May alam ka bang serbisyong dapat mahanap ng mga residente, o impormasyong kailangang itama? Magbahagi ng mapagkakatiwalaang sanggunian sa komunidad.">
         Know a service residents should be able to find, or noticed something
         that needs correcting? Share a reliable source with the community.
       </p>
-      <a href="/about/#contribute">Suggest a service or correction</a>
+      <a
+        href="/about/#contribute"
+        data-filipino="Magmungkahi ng serbisyo o pagwawasto"
+      >
+        Suggest a service or correction
+      </a>
     </div>
   </section>
 </BaseLayout>
