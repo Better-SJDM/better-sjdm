@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="City offices">
+  <section class="directory-page">
+    <h1 data-filipino="Mga tanggapan ng lungsod">City offices</h1>
+    <p data-filipino="Hanapin ang mga opisyal na detalye ng mga tanggapan sa direktoryo ng lungsod. Kumpirmahin ang kasalukuyang lokasyon at paraan ng pakikipag-ugnayan bago bumisita.">
+      Find official office details in the city directory. Confirm the current
+      location and contact details before visiting.
+    </p>
+    <p>
+      <a
+        href="https://csjdm.gov.ph/departments2/"
+        data-filipino="Tingnan ang direktoryo ng mga tanggapan ng lungsod"
+      >
+        View the official city office directory
+      </a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .directory-page {
+    width: min(calc(100% - 2rem), var(--container-site));
+    margin: auto;
+    padding: 3rem 0 5rem;
+  }
+  h1 {
+    color: var(--color-navy);
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  p {
+    margin-top: 1rem;
+    line-height: 1.7;
+    max-width: 65ch;
+  }
+  a {
+    color: var(--color-brand);
+    font-weight: 700;
+  }
+</style>
