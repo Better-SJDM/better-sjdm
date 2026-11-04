@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Online services">
+  <section class="directory-page">
+    <h1 data-filipino="Mga online na serbisyo">Online services</h1>
+    <p data-filipino="Nagbigay ang lungsod ng link sa portal na ito para sa pag-renew ng business permit sa abiso nito noong 2026. Kumpirmahin sa tanggapan kung magagamit pa ito.">
+      The city listed this portal for business permit renewals in its 2026
+      advisory. Confirm current availability with the office.
+    </p>
+    <p>
+      <a
+        href="https://bpbc.ibpls.com/cityofsanjosedelmontebulacan"
+        data-filipino="Mag-renew ng business permit online"
+      >
+        Renew a business permit online
+      </a>
+    </p>
+    <p>
+      <a
+        href="https://csjdm.gov.ph/public-advisory-business-permit-renewal-2026/"
+        data-filipino="Tingnan ang abiso ng lungsod noong 2026"
+      >
+        View the city’s 2026 advisory
+      </a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .directory-page {
+    width: min(calc(100% - 2rem), var(--container-site));
+    margin: auto;
+    padding: 3rem 0 5rem;
+  }
+  h1 {
+    color: var(--color-navy);
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  p {
+    margin-top: 1rem;
+    line-height: 1.7;
+    max-width: 65ch;
+  }
+  a {
+    color: var(--color-brand);
+    font-weight: 700;
+  }
+</style>

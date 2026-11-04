@@ -4,7 +4,7 @@
 
 Better SJDM is a community-maintained guide to services and information in San Jose del Monte, Bulacan. Residents can help keep it useful by suggesting services and correcting outdated information.
 
-**Project status: early foundation.** The service directory currently contains fictional examples, not verified city services. Better SJDM is an independent community project and is not an official city government website.
+**Project status: early foundation.** The service guides describe the 2026 Citizen's Charter. Requirements, fees, processing times, and contacts may have changed; confirm current details with the responsible office. Better SJDM is an independent community project and is not an official city government website.
 
 ## Explore the project
 
@@ -79,7 +79,7 @@ sample: true
 
 For a real entry, replace every example value with verified information and omit `sample` or set it to `false`. Add `contact` or `location` only when supported by the source. Quote values when YAML syntax requires it, such as text containing a colon followed by a space. Do not put private personal information or secrets in content files.
 
-Astro's content collection validates the YAML during checks and builds. The homepage categories are derived from the entries; service search matches titles, descriptions, and categories. The directory currently has a page-wide notice saying entries are examples, so maintainers must update that notice when introducing real entries.
+Astro's content collection validates the YAML during checks and builds. The homepage categories are derived from the entries; service search matches titles, descriptions, and categories. Fictional entries must be marked with `sample: true` so they are identified as examples.
 
 For more detail, see the [content guide](docs/content-guide.md).
 

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceSearch from "../components/site/ServiceSearch.astro";
+import CityInfo from "../components/site/CityInfo.astro";
 const services = (await getCollection("services")).sort((a, b) =>
   a.data.title.localeCompare(b.data.title),
 );
@@ -13,37 +14,56 @@ const services = (await getCollection("services")).sort((a, b) =>
     <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
     <div class="intro-inner">
       <div class="intro-copy">
-        <h1>
-          Kumusta, <span>San Joseños.</span>
-        </h1>
-        <p>
+        <h1>Kumusta, San Joseños.</h1>
+        <p data-filipino="Hanapin ang mga serbisyo at impormasyong kailangan mo sa iisang gabay para sa komunidad.">
           Find local services and the information you need, together in one
           community guide.
         </p>
         <ServiceSearch services={services} compact />
-        <a class="browse-services" href="/services/">
-          Browse all services
-        </a>
+        <div class="hero-links">
+          <a href="/services/" data-filipino="Mga serbisyo">
+            Services
+          </a>
+          <a href="/offices/" data-filipino="Mga tanggapan ng lungsod">
+            City offices
+          </a>
+          <a href="/online-services/" data-filipino="Mga online na serbisyo">
+            Online services
+          </a>
+          <a href="/emergency/" data-filipino="Mga numerong pang-emergency">
+            Emergency contacts
+          </a>
+        </div>
         <p class="project-note">
-          Independent community project, not an official city government
-          website.
+          <span data-filipino="Malayang proyekto ng komunidad; hindi ito opisyal na website ng pamahalaang lungsod.">
+            Independent community project, not an official city government
+            website.
+          </span>
           {services.some(({ data }) => data.sample) &&
             " Listings marked as fictional are examples."}
         </p>
       </div>
       <div class="hero-emblem" aria-hidden="true">
-        <img src="/images/better-sjdm-logo.jpg" alt="" />
+        <img src="/images/better-sjdm-hero.png" alt="" />
       </div>
     </div>
   </section>
+  <CityInfo />
   <section class="community">
     <div>
-      <h2>Help make this guide useful.</h2>
-      <p>
+      <h2 data-filipino="Tulungan kaming pagbutihin ang gabay na ito.">
+        Help make this guide useful.
+      </h2>
+      <p data-filipino="May alam ka bang serbisyong dapat mahanap ng mga residente, o impormasyong kailangang itama? Magbahagi ng mapagkakatiwalaang sanggunian sa komunidad.">
         Know a service residents should be able to find, or noticed something
         that needs correcting? Share a reliable source with the community.
       </p>
-      <a href="/about/#contribute">Suggest a service or correction</a>
+      <a
+        href="/about/#contribute"
+        data-filipino="Magmungkahi ng serbisyo o pagwawasto"
+      >
+        Suggest a service or correction
+      </a>
     </div>
   </section>
 </BaseLayout>
@@ -82,8 +102,8 @@ const services = (await getCollection("services")).sort((a, b) =>
     position: relative;
     display: grid;
     gap: 2rem;
-    padding-block: clamp(4rem, 8vw, 7rem);
-    align-items: start;
+    padding-block: clamp(3rem, 6vw, 5.5rem);
+    align-items: center;
   }
   .intro-copy {
     min-width: 0;
@@ -93,13 +113,9 @@ const services = (await getCollection("services")).sort((a, b) =>
     color: var(--color-navy);
     font-family: var(--font-site);
     font-weight: 800;
-    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
     line-height: 1.05;
     letter-spacing: -0.045em;
-  }
-  .intro-copy h1 span {
-    display: block;
-    color: var(--color-brand);
   }
   .intro-copy > p {
     max-width: 38rem;
@@ -115,31 +131,26 @@ const services = (await getCollection("services")).sort((a, b) =>
     width: min(100%, 46rem);
     margin-top: 1.5rem;
   }
-  .browse-services {
-    display: inline-block;
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
     margin-top: 1rem;
+  }
+  .hero-links a {
     color: var(--color-brand);
     font-weight: 700;
     text-underline-offset: 4px;
   }
   .hero-emblem {
     position: relative;
-    width: min(100%, 31rem);
+    width: min(65%, 22rem);
     margin-inline: auto;
-  }
-  .hero-emblem::before {
-    content: "";
-    position: absolute;
-    inset: 8% 12%;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff9dfb3, #fff9df00 72%);
-    pointer-events: none;
   }
   .hero-emblem img {
     position: relative;
     width: 100%;
     height: auto;
-    mix-blend-mode: multiply;
   }
   .community {
     padding-block: 4rem;
@@ -167,11 +178,11 @@ const services = (await getCollection("services")).sort((a, b) =>
     .home-intro {
       animation: ambient-gradient 20s ease-in-out infinite alternate;
     }
-    .intro-copy {
-      animation: enter 600ms ease-out both;
-    }
     .hero-orbit-one {
       animation: drift 12s ease-in-out infinite alternate;
+    }
+    .intro-copy {
+      animation: enter 600ms ease-out both;
     }
     .community a {
       transition:
@@ -209,6 +220,9 @@ const services = (await getCollection("services")).sort((a, b) =>
     .intro-inner {
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       gap: clamp(1.5rem, 4vw, 4rem);
+    }
+    .hero-emblem {
+      width: min(100%, 22rem);
     }
   }
 </style>

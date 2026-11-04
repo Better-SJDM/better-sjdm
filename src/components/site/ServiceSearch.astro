@@ -17,7 +17,9 @@ const categories = [
     class:list={{ "visually-hidden": compact }}
     for={compact ? "home-search" : "directory-search"}
   >
-    {compact ? "Search services" : "Search by name, description, or category"}
+    {compact
+      ? "Search services and offices"
+      : "Search services, offices, or online services"}
   </label>
   <form class="search-form" action="/services/" role="search">
     <input
@@ -25,11 +27,17 @@ const categories = [
       type="search"
       name="q"
       autocomplete="off"
-      placeholder={compact ? "Search for a service" : "Type a word to search"}
+      placeholder={
+        compact ? "Search services and offices" : "Type a word to search"
+      }
     />
-    {compact && <button type="submit">Find a service</button>}
+    {compact && (
+      <button type="submit" data-filipino="Maghanap">
+        Search
+      </button>
+    )}
   </form>
-  {categories.length > 0 && (
+  {!compact && categories.length > 0 && (
     <div class="categories">
       <h3>{compact ? "Browse by category:" : "Browse by category"}</h3>
       <div class="category-list">
@@ -48,9 +56,7 @@ const categories = [
       data-results-label
       hidden={compact}
     >
-      {services.length
-        ? `${services.length} ${services.length === 1 ? "service" : "services"}`
-        : "No services yet"}
+      {`${services.length + 2} results`}
     </p>
     <div class="results" data-search-results hidden={compact}>
       {services.map(({ id, data }) => (
@@ -69,9 +75,27 @@ const categories = [
           {!compact && <span>{data.description}</span>}
         </a>
       ))}
+      <a
+        class="result"
+        href="/offices/"
+        data-service-item
+        data-search="city offices office departments tanggapan lungsod"
+      >
+        <strong>City offices</strong>
+        <span>Official city office directory</span>
+      </a>
+      <a
+        class="result"
+        href="/online-services/"
+        data-service-item
+        data-search="online services business permit renewal renew negosyo pagpapanibago"
+      >
+        <strong>Online services</strong>
+        <span>Business permit renewal portal</span>
+      </a>
     </div>
     <p class="empty" hidden>
-      No services match your search. Try another word or clear your search.
+      No results match your search. Try another word or clear your search.
     </p>
   </div>
 </div>
@@ -145,7 +169,7 @@ const categories = [
     clip-path: inset(50%);
   }
   wa-input::part(base) {
-    border-radius: 0.65rem;
+    border-radius: 9999px;
     border-color: #8da6c7;
     background: white;
   }
@@ -153,7 +177,7 @@ const categories = [
     margin-top: 1rem;
     max-height: 18rem;
     overflow-y: auto;
-    border-radius: 0.75rem;
+    border-radius: 1.25rem;
     background: white;
     box-shadow: 0 12px 28px #09265724;
   }
@@ -172,7 +196,7 @@ const categories = [
     min-height: 48px;
     padding: 0.75rem 1.2rem;
     border: 0;
-    border-radius: 0.65rem;
+    border-radius: 9999px;
     background: var(--color-brand);
     color: white;
     font-weight: 700;
@@ -234,7 +258,7 @@ const categories = [
     min-height: 44px;
     padding: 0.55rem 0.85rem;
     border: 1px solid #c2d4ea;
-    border-radius: 0.65rem;
+    border-radius: 9999px;
     background: #f3f7fd;
     text-decoration: none;
   }

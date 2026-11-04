@@ -1,4 +1,5 @@
 const weather = document.querySelector<HTMLElement>("[data-weather]");
+const weatherTime = document.querySelector<HTMLElement>("[data-weather-time]");
 const exchange = document.querySelector<HTMLElement>("[data-exchange]");
 const clock = document.querySelector<HTMLTimeElement>("[data-local-time]");
 
@@ -28,9 +29,12 @@ async function updateWeather() {
     )
       throw new Error("Invalid weather data");
     weather.textContent = `${Math.round(result.current.temperature_2m)}°C`;
+    if (weatherTime)
+      weatherTime.textContent = `${result.current.time.replace("T", " ")} PHT`;
     weather.title = `Open-Meteo model estimate, ${result.current.time.replace("T", " ")} Philippine time`;
   } catch {
     weather.textContent = "Weather unavailable";
+    if (weatherTime) weatherTime.textContent = "";
   }
 }
 

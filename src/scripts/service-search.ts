@@ -13,8 +13,8 @@ for (const container of document.querySelectorAll<HTMLElement>(
   input.setAttribute(
     "label",
     nativeInput.id === "home-search"
-      ? "Search services"
-      : "Search by name, description, or category",
+      ? "Search services and offices"
+      : "Search services, offices, or online services",
   );
   input.setAttribute("with-clear", "");
   nativeInput.replaceWith(input);
@@ -27,10 +27,35 @@ for (const container of document.querySelectorAll<HTMLElement>(
   const categories = container.querySelector<HTMLElement>(".categories");
   if (!input || !empty || !label) continue;
   const defaultLabel = label.textContent?.trim() ?? "Services";
-  if (input.id === "directory-search")
-    input.value = new URLSearchParams(location.search).get("q") ?? "";
+  let filipino = false;
+  try {
+    filipino = localStorage.getItem("better-sjdm-language") === "fil";
+  } catch {
+    // Search remains available when storage is unavailable.
+  }
+
+  const form = container.querySelector<HTMLFormElement>("form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      const q = input.value?.trim() ?? "";
+      if (input.id === "home-search") {
+        e.preventDefault();
+        window.location.href = `/services/${q ? `?q=${encodeURIComponent(q)}` : ""}`;
+      }
+    });
+  }
+
+  const initialQuery =
+    input.id === "directory-search"
+      ? (new URLSearchParams(location.search).get("q") ?? "")
+      : "";
+  if (initialQuery) {
+    input.value = initialQuery;
+    input.setAttribute("value", initialQuery);
+  }
+
   const update = () => {
-    const query = input.value.trim().toLowerCase();
+    const query = (input.value ?? "").trim().toLowerCase();
     if (input.id === "home-search") {
       if (categories) categories.hidden = Boolean(query);
       label.hidden = !query;
@@ -43,9 +68,55 @@ for (const container of document.querySelectorAll<HTMLElement>(
     }
     empty.hidden = visible > 0 || (input.id === "home-search" && !query);
     label.textContent = query
-      ? `${visible} ${visible === 1 ? "service" : "services"} found`
-      : defaultLabel;
+      ? filipino
+        ? `${visible} resulta`
+        : `${visible} ${visible === 1 ? "result" : "results"} found`
+      : filipino
+        ? `${visible} resulta`
+        : defaultLabel;
   };
+
+  const updateLanguage = () => {
+    input.setAttribute(
+      "placeholder",
+      filipino
+        ? "Maghanap ng serbisyo at tanggapan"
+        : (nativeInput.getAttribute("placeholder") ?? ""),
+    );
+    input.setAttribute(
+      "label",
+      filipino
+        ? "Maghanap ng serbisyo at tanggapan"
+        : nativeInput.id === "home-search"
+          ? "Search services and offices"
+          : "Search services, offices, or online services",
+    );
+    empty.textContent = filipino
+      ? "Walang tumugmang resulta. Subukan ang ibang salita o burahin ang hinanap."
+      : "No results match your search. Try another word or clear your search.";
+    update();
+  };
+  document.addEventListener("better-sjdm-language", (event) => {
+    filipino = (event as CustomEvent<string>).detail === "fil";
+    updateLanguage();
+  });
+
   input.addEventListener("input", update);
-  update();
+  input.addEventListener("wa-input", update);
+  input.addEventListener("wa-clear", () => {
+    input.value = "";
+    input.setAttribute("value", "");
+    update();
+  });
+
+  if ("customElements" in window) {
+    void customElements.whenDefined("wa-input").then(() => {
+      if (initialQuery) {
+        input.value = initialQuery;
+      }
+      update();
+    });
+  }
+
+  updateLanguage();
 }

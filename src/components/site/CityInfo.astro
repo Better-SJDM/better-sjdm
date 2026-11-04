@@ -1,20 +1,18 @@
 <section class="info-strip" aria-label="City information">
   <div class="info-inner">
-    <div class="info-group" aria-label="Weather and exchange rate">
-      <div class="info-item">
-        <span class="info-label">San Jose del Monte</span>{" "}
-        <span data-weather>Weather unavailable</span>{" "}
-      </div>
-      <div class="info-item">
-        <span data-exchange>USD to PHP unavailable</span>{" "}
-      </div>
+    <div class="info-item">
+      <span class="info-label">San Jose del Monte</span>{" "}
+      <span data-weather>Weather unavailable</span>
+      <span class="weather-time" data-weather-time></span>
     </div>
-    <time class="info-item" data-local-time>
-      Philippine time unavailable
-    </time>
-    <a class="contribute" href="https://github.com/Better-SJDM/better-sjdm">
-      Want to contribute?
-    </a>
+    <div class="info-group">
+      <span class="info-item" data-exchange>
+        USD to PHP unavailable
+      </span>
+      <time class="info-item" data-local-time>
+        Philippine time unavailable
+      </time>
+    </div>
   </div>
 </section>
 <script>
@@ -22,22 +20,25 @@
 </script>
 <style>
   .info-strip {
-    flex: 1 0 auto;
-    min-width: 0;
+    border-bottom: 1px solid var(--color-stroke);
+    background: #edf4fa;
   }
   .info-inner {
-    padding-block: 0.25rem;
+    width: min(calc(100% - 2rem), var(--container-site));
+    margin-inline: auto;
+    padding-block: 0.65rem;
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    gap: clamp(0.75rem, 2vw, 1.5rem);
-    color: white;
-    font-size: 0.75rem;
+    gap: 0.5rem 1.5rem;
+    color: var(--color-navy);
+    font-size: 0.875rem;
     line-height: 1.5;
   }
   .info-group {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
   }
@@ -49,13 +50,9 @@
     white-space: nowrap;
   }
   .info-label {
-    font-weight: 500;
+    font-weight: 700;
   }
-  .contribute {
-    color: white;
-    font-weight: 400;
-    white-space: nowrap;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .weather-time {
+    font-size: 0.75rem;
   }
 </style>
