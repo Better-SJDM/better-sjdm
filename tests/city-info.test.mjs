@@ -11,10 +11,12 @@ const source = ts.transpile(
 
 test("city strip displays valid weather and uses the exchange fallback", async () => {
   const weather = { textContent: "", title: "" };
+  const weatherSource = { textContent: "" };
   const exchange = { textContent: "", title: "" };
   const clock = { textContent: "", dateTime: "" };
   const elements = {
     "[data-weather]": weather,
+    "[data-weather-source]": weatherSource,
     "[data-exchange]": exchange,
     "[data-local-time]": clock,
   };
@@ -43,6 +45,7 @@ test("city strip displays valid weather and uses the exchange fallback", async (
   });
   await new Promise((resolve) => setImmediate(resolve));
   assert.equal(weather.textContent, "28°C");
+  assert.equal(weatherSource.textContent, "Open-Meteo, 2026-11-03 12:00 PHT");
   assert.equal(exchange.textContent, "US$1 ≈ ₱58.12 (2026-11-03)");
   assert.match(clock.textContent, /PHT$/);
 });
