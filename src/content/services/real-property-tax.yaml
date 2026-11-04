@@ -5,14 +5,11 @@ description: Assessment and payment of annual basic real property tax and
 category: Taxes & Property
 office: City Treasury Office
 source: https://csjdm.gov.ph/wp-content/uploads/2026/06/CGO-SAN-JOSE-DEL-MONTE-CITIZENS-CHARTER-2026-2ND-EDITION.pdf
-sourceSection: "City Treasury Office, services 1 & 2: Statement of Real Property
-  Tax and Issuance of Official Receipts (AF-56)"
+sourceSection: "City Treasurer’s Office, services 1 and 2: Statement of Real
+  Property Tax and official receipt (printed pp. 223–224; PDF pp. 232–233)"
 sourceDate: 2026, 2nd Edition (pp. 223-224)
-verified: 2026-11-03
+verified: 2026-11-04
 sample: false
-location: City Treasury Office (CTO), Ground Floor, New Government Center,
-  Barangay Dulong Bayan, City of San Jose del Monte, Bulacan
-contact: (044) 919-7370 local 1116 to 1117 / cto_sjdm@yahoo.com.ph
 keywords:
   - real property tax
   - amilyar
@@ -20,28 +17,28 @@ keywords:
   - buwis sa lupa
   - treasury
   - tax clearance
-eligibility: Any property owner or authorized representative paying taxes on
-  real property situated within San Jose del Monte.
+eligibility: A taxpayer who owns real property in the city, whether resident or
+  non-resident, or an authorized representative.
 requirements:
-  - Valid government-issued photo identification
-  - Previous Real Property Tax Official Receipt (AF-56)
-  - Latest Tax Declaration from the City Assessor's Office
-  - Copy of Transfer Certificate of Title (TCT) if updating records
-  - Notarized Special Power of Attorney or Authorization Letter if paying
-    through a representative
+  - "For the tax statement, the charter says you may present any or all of:
+    valid identification (original or photocopy), latest tax receipt, latest tax
+    declaration, or a copy of the transfer certificate of title."
+  - "For a representative: SPA, authorization, or secretary’s certificate, as
+    applicable. Confirm which documents the office needs."
+  - "For payment: the Statement of Real Property Tax issued by the City
+    Treasurer’s Office."
 steps:
-  - Present previous tax receipt or tax declaration at Treasury Assessment
-    Counters 5, 6, 7, or 8 to compute tax due (5 minutes).
-  - Receive Statement of Real Property Tax.
-  - Present Statement to RPT Cashier Counters 11, 12, or 14 and pay assessed
-    amount (5 minutes).
-  - Secure Official Receipt (Accountable Form No. 56).
-fees: Basic Real Property Tax is 1.1% of assessed value; Special Education Fund
-  (SEF) is 1.0% of assessed value (total 2.1%). Delinquent accounts incur 2%
-  monthly interest capped at a maximum of 36 months (72%) per RA 7160 Section
-  255.
-processingTime: 10 minutes total counter turnaround per property unit for
-  walk-in transactions (5 minutes assessment + 5 minutes cashier payment).
-sourceNote: Details are transcribed from the research report. The full 2026
-  charter could not be independently opened during this review; confirm current
-  requirements, fees, and processing times with the office.
+  - Request a Statement of Real Property Tax at assessment counter 5, 6, 7, or 8
+    and present identification and necessary documents.
+  - Present the statement to RPT cashier counter 11, 12, or 14.
+  - Pay the assessed amount and obtain the official receipt (AF-56).
+fees: The charter lists basic real property tax at 1.1% of assessed value plus
+  1% for the Special Education Fund. It states that unpaid tax accrues 2%
+  monthly interest, limited to 36 months. Confirm your assessed amount and
+  current rules with the City Treasurer’s Office.
+processingTime: The charter lists 5 minutes for the statement and 5 minutes for
+  payment, per transaction.
+sourceNote: Based on the 2026 Citizen’s Charter. Requirements, fees, locations,
+  and processing times may have changed; confirm current details with the
+  responsible office.
+stepsSource: https://csjdm.gov.ph/wp-content/uploads/2026/06/CGO-SAN-JOSE-DEL-MONTE-CITIZENS-CHARTER-2026-2ND-EDITION.pdf

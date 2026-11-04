@@ -4,14 +4,12 @@ description: Issuance of certified true copies or local certifications of vital
 category: Civil Registry & Identity
 office: City Civil Registry Office
 source: https://csjdm.gov.ph/wp-content/uploads/2026/06/CGO-SAN-JOSE-DEL-MONTE-CITIZENS-CHARTER-2026-2ND-EDITION.pdf
-sourceSection: "City Civil Registry Office, service 1: Issuance of Certified
-  Photocopy / Certification of Birth, Death and Marriage Certificate"
+sourceSection: "City Civil Registry Office, service 1: Certified photocopy or
+  certification of birth, death, and marriage certificates (printed pp. 180–181;
+  PDF pp. 189–190)"
 sourceDate: 2026, 2nd Edition (pp. 180-181)
-verified: 2026-11-03
+verified: 2026-11-04
 sample: false
-location: City Civil Registry Office (CCRO), Upper Ground Floor, New Government
-  Center, Barangay Dulong Bayan, City of San Jose del Monte, Bulacan
-contact: (044) 919-7370 local 1214 / 0999-544-9677 / csjdmlcro@gmail.com
 keywords:
   - birth certificate
   - marriage certificate
@@ -21,29 +19,32 @@ keywords:
   - katibayan ng kasal
   - katibayan ng kamatayan
   - lcr
-eligibility: Document owner, spouse, parent, direct descendant, legal guardian,
-  or authorized representative presenting valid proof of authority.
+eligibility: The charter lists the document owner or authorized representative;
+  spouse, parent, direct descendant, guardian or institution legally in charge
+  of a minor; a court or proper public official in specified proceedings; and
+  nearest kin when the person has died.
 requirements:
-  - At least one valid government-issued photo ID of the document owner
-    (original and photocopy)
-  - Signed Authorization Letter and valid ID of owner if filed by a
-    representative
-  - Original and photocopy of representative's valid government photo ID
-  - Duly filled-out CCRO Verification Slip specifying full names, dates, and
-    event details
+  - "For the owner: government-issued identification."
+  - "For a representative: authorization from the owner and signed photocopies
+    of the government-issued IDs of both the owner and representative."
+  - "For direct descendants, guardians, or institutions legally in charge of a
+    minor: affidavit of guardianship, as listed in the charter; confirm
+    applicability with the office."
+  - "For a court or proper public official: court order."
+  - "For nearest kin: affidavit of nearest kin."
 steps:
-  - Sign attendance sheet and get transaction number at CCRO triage (2 minutes).
-  - Submit verification slip and valid ID at Window 1 or 2 for database lookup
-    (3 minutes).
-  - Pay certification fee at City Treasury Office counter and secure Official
-    Receipt (9 minutes).
-  - Present Official Receipt at CCRO Window 1 and wait for document retrieval (5
-    minutes).
-  - Claim certified copy or certification at Window 2 (1 minute).
-fees: Certified True Copy for local use is ₱35.00 per copy. Certification is
-  ₱50.00 per copy. Certified True Copy for abroad is ₱100.00 per copy (AO 1 s.
-  1993 / RA 7160).
-processingTime: 21 minutes total counter turnaround.
-sourceNote: Details are transcribed from the research report. The full 2026
-  charter could not be independently opened during this review; confirm current
-  requirements, fees, and processing times with the office.
+  - Sign the attendance sheet, obtain a transaction number, and receive a
+    verification slip.
+  - Complete the slip and submit it with the applicable documents for
+    verification.
+  - If the record is found, pay the order of payment at the City Treasurer’s
+    Office and keep the official receipt.
+  - Return the receipt to the civil registry window and claim the certified copy
+    or certification when called.
+fees: The charter lists ₱35 per certified true copy for local use, ₱50 per
+  certification, and ₱100 per certified true copy for use abroad.
+processingTime: The charter lists 21 minutes.
+sourceNote: Based on the 2026 Citizen’s Charter. Requirements, fees, locations,
+  and processing times may have changed; confirm current details with the
+  responsible office.
+stepsSource: https://csjdm.gov.ph/wp-content/uploads/2026/06/CGO-SAN-JOSE-DEL-MONTE-CITIZENS-CHARTER-2026-2ND-EDITION.pdf
