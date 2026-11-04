@@ -113,6 +113,11 @@ h3,
 p {
   margin: 0;
 }
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-site);
   color: var(--color-ink);
@@ -225,4 +230,16 @@ summary:focus-visible {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Remove browser default focus outline/bounding box on Leaflet map elements */
+.leaflet-container :focus,
+.leaflet-container :focus-visible,
+.leaflet-container path:focus,
+.leaflet-container path:focus-visible,
+.leaflet-container svg:focus,
+.leaflet-interactive:focus,
+path.leaflet-interactive:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

@@ -263,7 +263,7 @@ if (root) {
             layer.on("click", () => {
               if (code === "0301420007") {
                 mapStatus.textContent =
-                  "Former Muzon boundary — select one of its four barangays from the list.";
+                  "Former Muzon boundary: select one of its four barangays from the list.";
               } else {
                 selectBarangay(code, true);
               }
@@ -282,7 +282,7 @@ if (root) {
               if (bgy) {
                 mapStatus.textContent =
                   code === "0301420007"
-                    ? "Former Muzon boundary — select a barangay from the list."
+                    ? "Former Muzon boundary: select a barangay from the list."
                     : `Barangay ${bgy.name} · ${formatNumber(bgy.population["2024"] ?? 0)} residents (2024)`;
               }
             });
